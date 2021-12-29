@@ -39,7 +39,7 @@ session_start();
   <input type="submit" value="LOGIN" />
   </form>
 
-  <a href="user_reg.php">新規登録</a>
+  <a href="userreg.php">新規登録</a>
 
 </body>
 </html>

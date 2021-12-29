@@ -41,7 +41,6 @@ if ($_SESSION["success"]==1) {
   redirect("userreg.php");
 }
 else {
-  
   //sqlとloginページへのリダイレクト
   $stmt = $pdo->prepare("INSERT INTO table4(USER_ID, USER_NAME, EMAIL, PASSWORD, GENDER, BIRTHDAY, ADDRESS, TWITTER, CREATE_DATE)VALUES(:USER_ID, :USER_NAME, :EMAIL, :PASSWORD,:GENDER, :BIRTHDAY, :ADDRESS, :TWITTER, sysdate())");
   $stmt->bindValue(':USER_ID', $_POST["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
@@ -52,7 +51,9 @@ else {
   $stmt->bindValue(':BIRTHDAY', $_POST["BIRTHDAY"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':ADDRESS', $_POST["ADDRESS"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':TWITTER', $_POST["TWITTER"], PDO::PARAM_STR);      //Integer（数値の場合 
-  $status = $stmt->execute(); //実行
+  var_dump($stmt);
+  var_dump($_POST["USER_ID"]);
+  // $status = $stmt->execute(); //実行
   $_SESSION["USER_ID"]="";
   $_SESSION["USER_NAME"]="";
   $_SESSION["EMAIL"]="";
@@ -62,6 +63,6 @@ else {
   $_SESSION["TWITTER"]="";
   $_SESSION["duplicate"]=0;
   $_SESSION["mismatch"]=0;
-  redirect("login.php");
+  // redirect("login.php");
 }
 ?>
