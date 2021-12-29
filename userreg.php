@@ -33,15 +33,9 @@ function confirm_test() {
     <td>入力欄</td>
   </tr>
   <tr>
-    <td>ユーザー名<sup>*</sup>:</td>
-    <td>
-      <input type="text" name="name" placeholder="好きな名前を設定してください" required value="<?=$_SESSION["USER_NAME"]?>"/>
-    </td>
-  </tr>
-  <tr>
     <td>ID<sup>*</sup>:</td>
     <td>
-      <input type="text" name="USER_ID" placeholder="4文字以上の英数字を入力してください" required value="<?=$_SESSION["lid"]?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい"/>
+      <input type="text" name="USER_ID" placeholder="4文字以上の英数字を入力してください" required value="<?=$_SESSION["USER_ID"]?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい"/>
       <?php
       if ($_SESSION["duplicate"]==1) {
         echo "そのIDは使用できません、別のID名を指定してください";
@@ -51,15 +45,21 @@ function confirm_test() {
     </td>
   </tr>
   <tr>
+    <td>ユーザー名<sup>*</sup>:</td>
+    <td>
+      <input type="text" name="name" placeholder="好きな名前を設定してください" required value="<?=$_SESSION["USER_NAME"]?>"/>
+    </td>
+  </tr>
+  <tr>
     <td>Password<sup>*</sup>:</td>
     <td>
-      <input type="password" id="input_pass" name="lpw" placeholder="8文字以上の英数字を入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい"/><button id="btn_passview">表示</button>
+      <input type="password" id="input_pass" name="PASSWORD" placeholder="8文字以上の英数字を入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい"/><button id="btn_passview">表示</button>
     </td>
   </tr>
   <tr>
     <td>Password（再入力）<sup>*</sup>:</td>
     <td>
-      <input type="password" name="lpw2" id="input_pass2" placeholder="Passwordを再入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい"/><button id="btn_passview2">表示</button>
+      <input type="password" name="PASSWORD2" id="input_pass2" placeholder="Passwordを再入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい"/><button id="btn_passview2">表示</button>
       <?php
       if ($_SESSION["mismatch"]==1) {
         echo "Passwordが一致しません";
@@ -71,23 +71,35 @@ function confirm_test() {
   <tr>
     <td>e-mail<sup>*</sup>:</td>
     <td>
-      <input type="email" name="email" placeholder="example@test.ne.jp" value="<?=$_SESSION["email"]?>" required/>
-    </td>
-  </tr>
-  <tr>
-    <td>生年月日:</td>
-    <td>
-      <input type="date" name="birthday" value="<?=$_SESSION["birthday"]?>"/>
+      <input type="email" name="EMAIL" placeholder="example@test.ne.jp" value="<?=$_SESSION["EMAIL"]?>" required/>
     </td>
   </tr>
   <tr>
     <td>性別:</td>
     <td>
-      <select name="sex">
+      <select name="GENDER">
         <option value="">--選択してください--</option>
-        <option value="male" <?php if ($_SESSION["sex"]=="male") {echo "selected";}?>>男性</option>
-        <option value="female" <?php if ($_SESSION["sex"]=="female") {echo "selected";}?>>女性</option>
+        <option value="male" <?php if ($_SESSION["GENDER"]=="male") {echo "selected";}?>>男性</option>
+        <option value="female" <?php if ($_SESSION["GENDER"]=="female") {echo "selected";}?>>女性</option>
       </select>
+    </td>
+  </tr>
+  <tr>
+    <td>生年月日:</td>
+    <td>
+      <input type="date" name="BIRTHDAY" value="<?=$_SESSION["BIRTHDAY"]?>"/>
+    </td>
+  </tr>
+  <tr>
+    <td>住所:</td>
+    <td>
+      <input type="text" name="ADDRESS" value="<?=$_SESSION["ADDRESS"]?>"/>
+    </td>
+  </tr>
+  <tr>
+    <td>Twitter:</td>
+    <td>
+      <input type="text" name="TWITTER" value="<?=$_SESSION["TWITTER"]?>"/>
     </td>
   </tr>
 </table>
