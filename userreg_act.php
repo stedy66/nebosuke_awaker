@@ -49,21 +49,28 @@ else {
   $stmt->bindValue(':PASSWORD', password_hash($_POST["PASSWORD"], PASSWORD_DEFAULT), PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':GENDER', $_POST["GENDER"], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
   //日付型はそのままだとDBの日付型に入らない
-  $BIRTH=str_replace('-','',$_POST["BIRTHDAY"]);
+  if ($BIRTH=='') {
+    $BIRTH='19000101';
+  } else {
+    $BIRTH=str_replace('-','',$_POST["BIRTHDAY"]);
+  }
   $stmt->bindValue(':BIRTHDAY', $BIRTH, PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':ADDRESS', $_POST["ADDRESS"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':TWITTER', $_POST["TWITTER"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-  var_dump($stmt->execute());
   $status = $stmt->execute(); //実行
-  $_SESSION["USER_ID"]="";
-  $_SESSION["USER_NAME"]="";
-  $_SESSION["EMAIL"]="";
-  $_SESSION["GENDER"]="";
-  $_SESSION["BIRTHDAY"]="";
-  $_SESSION["ADDRESS"]="";
-  $_SESSION["TWITTER"]="";
-  $_SESSION["duplicate"]=0;
-  $_SESSION["mismatch"]=0;
-  redirect("login.php");
+  if($status==false) {
+    sql_error($stmt);
+  }else{
+    $_SESSION["USER_ID"]="";
+    $_SESSION["USER_NAME"]="";
+    $_SESSION["EMAIL"]="";
+    $_SESSION["GENDER"]="";
+    $_SESSION["BIRTHDAY"]="";
+    $_SESSION["ADDRESS"]="";
+    $_SESSION["TWITTER"]="";
+    $_SESSION["duplicate"]=0;
+    $_SESSION["mismatch"]=0;
+    redirect("login.php");
+  }
 }
 ?>
