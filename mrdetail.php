@@ -1,8 +1,7 @@
 <?php
 session_start();
 //GET送信されたMR_IDを取得
-// $MR_ID=$_GET["MR_ID"];
-$MR_ID=4; //テスト
+$MR_ID=$_GET["MR_ID"];
 include("funcs.php");
 $pdo = db_conn();
 
@@ -84,7 +83,7 @@ else {
     <?php
       if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id()){
         $view="";
-        $view.='<p>';
+        $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
         $view.='<a href="userreg_act.php?USER_ID='. $_SESSION["USER_ID"].'&MR_ID='.$MR_ID.'">';
         $view.='「ダウンロードする・実行する」';
         $view.='</a>';

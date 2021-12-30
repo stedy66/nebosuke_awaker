@@ -36,10 +36,10 @@ if ($count==0) {
 }
 else {
   $pw = password_verify($_POST["PASSWORD"], $val["PASSWORD"]);
-  if($pw){ 
+  if($pw){
     //Login成功時
     $_SESSION["chk_ssid"]  = session_id();
-    $_SESSION["lid"]      = $val['lid'];
+    $_SESSION["USER_ID"]   = $val['USER_ID'];
     //表示用の変数をリセット（たぶんやらなくても大丈夫）
     $_SESSION["duplicate"] = 0;
     $_SESSION["mismatch"] = 0;
