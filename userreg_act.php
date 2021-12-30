@@ -47,13 +47,14 @@ else {
   $stmt->bindValue(':USER_NAME', $_POST["USER_NAME"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':EMAIL', $_POST["EMAIL"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':PASSWORD', password_hash($_POST["PASSWORD"], PASSWORD_DEFAULT), PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-  $stmt->bindValue(':GENDER', $_POST["GENDER"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-  $stmt->bindValue(':BIRTHDAY', $_POST["BIRTHDAY"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+  $stmt->bindValue(':GENDER', $_POST["GENDER"], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
+  //日付型はそのままだとDBの日付型に入らない
+  $BIRTH=str_replace('-','',$_POST["BIRTHDAY"]);
+  $stmt->bindValue(':BIRTHDAY', $BIRTH, PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':ADDRESS', $_POST["ADDRESS"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-  $stmt->bindValue(':TWITTER', $_POST["TWITTER"], PDO::PARAM_STR);      //Integer（数値の場合 
-  var_dump($stmt);
-  var_dump($_POST["USER_ID"]);
-  // $status = $stmt->execute(); //実行
+  $stmt->bindValue(':TWITTER', $_POST["TWITTER"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+  var_dump($stmt->execute());
+  $status = $stmt->execute(); //実行
   $_SESSION["USER_ID"]="";
   $_SESSION["USER_NAME"]="";
   $_SESSION["EMAIL"]="";
@@ -63,6 +64,6 @@ else {
   $_SESSION["TWITTER"]="";
   $_SESSION["duplicate"]=0;
   $_SESSION["mismatch"]=0;
-  // redirect("login.php");
+  redirect("login.php");
 }
 ?>

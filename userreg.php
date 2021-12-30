@@ -47,7 +47,7 @@ function confirm_test() {
   <tr>
     <td>ユーザー名<sup>*</sup>:</td>
     <td>
-      <input type="text" name="name" placeholder="好きな名前を設定してください" required value="<?=$_SESSION["USER_NAME"]?>"/>
+      <input type="text" name="USER_NAME" placeholder="好きな名前を設定してください" required value="<?=$_SESSION["USER_NAME"]?>"/>
     </td>
   </tr>
   <tr>
@@ -79,8 +79,8 @@ function confirm_test() {
     <td>
       <select name="GENDER">
         <option value="">--選択してください--</option>
-        <option value="male" <?php if ($_SESSION["GENDER"]=="male") {echo "selected";}?>>男性</option>
-        <option value="female" <?php if ($_SESSION["GENDER"]=="female") {echo "selected";}?>>女性</option>
+        <option value=1 <?php if ($_SESSION["GENDER"]==1) {echo "selected";}?>>男性</option>
+        <option value=2 <?php if ($_SESSION["GENDER"]==2) {echo "selected";}?>>女性</option>
       </select>
     </td>
   </tr>
