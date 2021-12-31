@@ -27,9 +27,7 @@ $user = $stmt->fetch();
   <title>Document</title>
 </head>
 <body>
-  <p>こんにちは、<?=$user["USER_NAME"]?></p>
-  <p>my morning routine</p>
-  <p><a href="mymrp.php">すべて見る</a></p>
+  <p>my morning routine一覧</p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -38,13 +36,8 @@ $user = $stmt->fetch();
   if($status==false){
     sql_error($stmt);
   } else {
-    $i=0;
-    while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-      if ($i>=3) {
-        break;
-      } 
+    while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ 
       echo '<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
-      $i+=1;
     }
   }
   ?>

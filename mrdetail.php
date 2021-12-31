@@ -81,11 +81,19 @@ else {
     ?>
     <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
     <?php
-      if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id()){
+      if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]!=$package["USER_ID"]){
         $view="";
         $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
         $view.='<a href="userreg_act.php?USER_ID='. $_SESSION["USER_ID"].'&MR_ID='.$MR_ID.'">';
         $view.='「ダウンロードする・実行する」';
+        $view.='</a>';
+        $view.='</p>';
+        echo $view;
+      } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
+        $view="";
+        $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
+        $view.='<a href="edit.php".php>';
+        $view.='「編集する」';
         $view.='</a>';
         $view.='</p>';
         echo $view;
