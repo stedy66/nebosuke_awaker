@@ -82,11 +82,25 @@ else {
     <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
     <?php
       if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]!=$package["USER_ID"]){
+        //2. 登録済みのUSER_IDとの重複チェック
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM table2 WHERE USER_ID=:USER_ID AND MR_ID=:MR_ID"); 
+        $stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);
+        $stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_STR);
+        $status = $stmt->execute();
+        //3. SQL実行時にエラーがある場合STOP
+        if($status==false){
+          sql_error($stmt);
+        }
+        $count = $stmt->fetchColumn();
         $view="";
         $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
-        $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
-        $view.='「ダウンロードする・実行する」';
-        $view.='</a>';
+        if ($count>0) {
+          $view.='「ダウンロード済みのモーニングルーティンです」';
+        } else {
+          $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
+          $view.='「ダウンロードする・実行する」';
+          $view.='</a>';
+        }
         $view.='</p>';
         echo $view;
       } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {

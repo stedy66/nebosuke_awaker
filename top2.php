@@ -34,6 +34,7 @@ $user = $stmt->fetch();
     }
   ?>
   <p>こんにちは、<?=$user["USER_NAME"]?></p>
+  <p><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
   <p>my morning routine</p>
   <p><a href="mymrp.php">すべて見る</a></p>
   <?php

@@ -7,6 +7,16 @@
   <title>Document</title>
 </head>
 <body>
-  
+<form action="share_act.php" method="POST" onsubmit="return confirm_test()">
+  <input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください"/>
+  <table>
+
+  </table>
+  <p>+</p>
+  <input type="text" name="DESCRIPTION" placeholder="コメント（任意）"/>
+  <input type="text" name="YOUTUBE" placeholder="YouTube動画のリンクを入れてください（任意）"/>
+  <p>みんなにシェア<input type="checkbox" name="SHARED"></p>
+  <input type="submit" value="登録" />
+</form>
 </body>
 </html>
