@@ -24,7 +24,7 @@ if($status==false){
   <script src="js/jquery-2.1.3.min.js"></script>
 </head>
 <body>
-<form action="share_act.php" method="POST" onsubmit="return confirm_test()">
+<form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
   <input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください"/>
   <table id="table">
     <tr>
