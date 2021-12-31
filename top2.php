@@ -27,6 +27,12 @@ $user = $stmt->fetch();
   <title>Document</title>
 </head>
 <body>
+  <?php
+    if (!isset($_SESSION["download"]) && $_SESSION["download"]==1) {
+      echo "<p>ダウンロードしました。</p>";
+      $_SESSION["download"]=0;
+    }
+  ?>
   <p>こんにちは、<?=$user["USER_NAME"]?></p>
   <p>my morning routine</p>
   <p><a href="mymrp.php">すべて見る</a></p>
