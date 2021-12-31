@@ -78,7 +78,7 @@ function confirm_test() {
     <td>性別:</td>
     <td>
       <select name="GENDER">
-        <option value="">--選択してください--</option>
+        <option value="" <?php if (!isset($_SESSION["GENDER"])) {echo "selected";}?>>--選択してください--</option>
         <option value=1 <?php if ($_SESSION["GENDER"]==1) {echo "selected";}?>>男性</option>
         <option value=2 <?php if ($_SESSION["GENDER"]==2) {echo "selected";}?>>女性</option>
       </select>
