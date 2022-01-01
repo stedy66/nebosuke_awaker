@@ -47,7 +47,7 @@ if($status==false){
       $view.="</select>";
       $view.="</td>";
       $view.="<td><input type='text' name='DESCRIPTION".$i."'/></td>";
-      $view.="<td><input type='text' name='TIME".$i."'/>min</td>";
+      $view.="<td><input type='number' step=1 min=0 value=0 name='PERIOD".$i."'/>min</td>";
       $view.="</tr>";
       echo $view;
     }
@@ -72,7 +72,7 @@ if($status==false){
       $view.="</select>";
       $view.="</td>";
       $view.="<td><input type='text' name='DESCRIPTION".$i."'/></td>";
-      $view.="<td><input type='text' name='PERIOD".$i."'/>min</td>";
+      $view.="<td><input type='number' step=1 min=0 value=0 name='PERIOD".$i."'/>min</td>";
       $view.="</tr>";
       $i++;
     ?>

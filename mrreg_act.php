@@ -25,13 +25,13 @@ if($status==false) {
 $MR_ID=($pdo->lastInsertId());
 
 $i=1;
-while (isset($_POST["STEP_ID".$i])) {
+while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
   $stmt2 = $pdo->prepare("INSERT INTO table1_3(MR_ID, SEQUENCE, STEP_ID, DESCRIPTION, PERIOD)VALUES(:MR_ID, :SEQUENCE, :STEP_ID, :DESCRIPTION, :PERIOD)");
   $stmt2->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt2->bindValue(':SEQUENCE', $i, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt2->bindValue(':STEP_ID', $_POST["STEP_ID".$i], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt2->bindValue(':DESCRIPTION', $_POST["DESCRIPTION".$i], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-  $stmt2->bindValue(':PERIOD', $_POST["PERIOD".$i], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
+  $stmt2->bindValue(':PERIOD', $_POST["PERIOD".$i]/1, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
   $status2 = $stmt2->execute(); //実行
   if($status2==false) {
     sql_error($stmt2);
