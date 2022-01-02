@@ -93,15 +93,22 @@ else {
         }
         $count = $stmt->fetchColumn();
         $view="";
-        $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
         if ($count>0) {
+          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
           $view.='「ダウンロード済みのモーニングルーティンです」';
+          $view.='</p>';
+          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
+          $view.='<a href="delete_from_mmr.php?MR_ID='.$MR_ID.'">';
+          $view.='「削除する（my morning routineから削除します）」';
+          $view.='</a>';
+          $view.='</p>';
         } else {
+          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
           $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
           $view.='「ダウンロードする・実行する」';
           $view.='</a>';
+          $view.='</p>';
         }
-        $view.='</p>';
         echo $view;
       } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
         $view="";
@@ -112,6 +119,7 @@ else {
         $view.='</p>';
         echo $view;
       }
+      echo '<p style="width: 70%; margin-left: auto; margin-right: auto;"><a href="top2.php".php>トップに戻る</a></p>';
     ?>
 </body>
 </html>

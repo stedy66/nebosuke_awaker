@@ -39,6 +39,14 @@ while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
   $i++;
 }
 
+$stmt = $pdo->prepare("INSERT INTO table2(USER_ID, MR_ID)VALUES(:USER_ID, :MR_ID)");
+$stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
+$status = $stmt->execute(); //実行
+if($status==false) {
+  sql_error($stmt);
+}
+
 //mysql_insert_id()は直近でinsertした行のidを取得するphpの関数
 redirect("mrdetail.php?MR_ID=".$MR_ID);
 
