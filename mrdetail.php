@@ -62,7 +62,7 @@ else {
             $view = '<tr>' ;
             $view .= "<td style='background:#ffffe0;border:1px solid;'>".$res["SEQUENCE"]."</td>";
             $view .= "<td style='background:#ffffe0;border:1px solid;'>".$res["STEP_NAME"]."</td>";
-            $view .= "<td style='background:#ffffe0;border:1px solid;'>".$res["PERIOD"]."</td>";
+            $view .= "<td style='background:#ffffe0;border:1px solid;'>".$res["PERIOD"]."min</td>";
             $view .= "<td style='background:#ffffe0;border:1px solid; text-align: left;'>".$res["DESCRIPTION"]."</td>";
             $view .= '<tr>';
             echo $view;
@@ -75,9 +75,11 @@ else {
       //nl2br関数はphpの改行コードをhtmlの改行タグに変換してくれる関数
       echo '<p style="width: 70%; margin-left: auto; margin-right: auto;">'.nl2br($package["DESCRIPTION"]).'</p>';
     ?>
-    <!-- YouTubeリンク（矢部さんのにレイアウトには現れないので、要確認） -->
+    <!-- YouTubeリンク（矢部さんのレイアウトには現れないので、要確認） -->
     <?php
+    if ($package["YOUTUBE"]!="") {
       echo '<p style="width: 70%; margin-left: auto; margin-right: auto;"><a href="'.$package["YOUTUBE"].'">YouTubeへリンク<a/></p>';
+    }
     ?>
     <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
     <?php
