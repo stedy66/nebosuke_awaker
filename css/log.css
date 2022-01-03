@@ -93,6 +93,22 @@ table td {
 }
 /* 送信ボタン */
 .btn{
-  text-align: center;
   margin: 30px auto;
+}
+.button {
+  display: inline-block;
+  border-radius : 7%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 16px 73px;   /* 余白       */
+  background    : #ffc900;     /* 背景色     */
+  color         : #000000;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #ffc900;    /* 枠の指定 */
+}
+.button:hover {
+  color         : #ffc900;     /* 背景色     */
+  background    : #fef7e7;     /* 文字色     */
 }
