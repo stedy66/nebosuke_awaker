@@ -8,11 +8,11 @@ include('funcs.php');
 $pdo = db_conn();
 
 //LOGINチェック → funcs.phpへ関数化しましょう！
-sschk();
+//sschk();
 
 
 $end_time = '';
-$period = '';
+$step = '';
 
 
 //2．データ登録SQL作成
@@ -23,17 +23,20 @@ $status = $stmt->execute();
 //loop through the returned data
 while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-    $end_time = $end_time . '"'.date('H:i', strtotime($r["end_time"])).'",';
-    $period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+    $end_time = $end_time .'"' .date('H:i', strtotime($r["end_time"])) .'",';
+    //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+    $step = $step .'"' .$r["step"] .'",';
     $date = date('m月d日', strtotime($r["date"]));
 
 }
 
+//var_dump($end_time);
 $end_time = trim($end_time,",");
-$period = trim($period,",");
-// echo $period;
-
-
+//$step = trim($step,",");
+$key = array_key_last($end_time);
+//echo $end_time[$key];
+//echo end($end_time);
+//var_dump($end_time);
 
 ?>
 
@@ -49,8 +52,8 @@ $period = trim($period,",");
 </head>
 <body>
 <!-- Main[Start] -->
-<header>
-<h1>ログ</h1>
+<header class="triangle01">
+<p>ログ</p>
 </header>
 <section id = "main">
 <h2 style="text-align: center"><?=$date?></h2>
@@ -103,8 +106,10 @@ $period = trim($period,",");
         }
         ?>
       </table>
+        <div class="btn">
+            <input type="submit" class="button" value="記録シェア">
+        </div>
 
-      <div class="btn"><input type="submit" value="記録シェア"></div>
     </div>
 </form>
 
@@ -115,40 +120,68 @@ $period = trim($period,",");
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
+    //グラフタイプ
     type: 'line',
+    //データ
     data: {
+        //X軸データ
         labels: [<?php echo $end_time ?>],//各棒の名前（name)
-        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'ほげ'],//各棒の名前（name)
+        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'ほげ'],//各棒の名前（name)
+        //labels: ['09:30', '11:10', '13:00', '15:00', '18:30', '19:50'],
+        //データセット
         datasets: [{
             label: '覚醒度',
-            //data: [<?php echo $period ?>],//各縦棒の高さ(値段)
-            data: [3, 10, 3, 5, 15, 20, 10, 30, 15, 100],//各縦棒の高さ(値段)
-            backgroundColor: [
-                'rgba(255, 201, 0, 0.2)',
-                // 'rgba(54, 162, 235, 0.2)',
-                // 'rgba(255, 206, 86, 0.2)',
-                // 'rgba(75, 192, 192, 0.2)',
-                // 'rgba(153, 102, 255, 0.2)',
-                // 'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 201, 0, 1)',
-                // 'rgba(54, 162, 235, 1)',
-                // 'rgba(255, 206, 86, 1)',
-                // 'rgba(75, 192, 192, 1)',
-                // 'rgba(153, 102, 255, 1)',
-                // 'rgba(255, 159, 64, 1)'
-            ],
+            //Y軸データ
+            data: [<?php echo $step ?>],//各縦棒の高さ(値段)
+            //data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],//各縦棒の高さ(値段)
+            //線の色
+            backgroundColor: 'rgba(255, 201, 0, 0.2)',
+            //塗りつぶしの色
+            borderColor: 'rgba(255, 201, 0, 1)',
             borderWidth: 1
         }]
     },
+    //グラフ設定
     options: {
+        //凡例は非表示
+        //legend: {
+        //    display: false
+        //},
         scales: {
+            //X軸
+            xAxes: [{
+                //軸ラベル表示
+                scaleLabel: {
+                    display: true,
+                //    labelString: 'TIME'
+                },
+                //ここで軸を時間を設定する
+                type: 'time',
+                time: {
+                    parser: 'HH:mm',
+                    unit: 'minute',
+                    stepSize: 30,
+                    displayFormats: {
+                        'hour': 'HH:mm'
+                    }
+                },
+                //X軸の範囲を指定
+                ticks: {
+                    min: '07:03',
+                    max: '10:21'//'end($end_time)';
+                }
+            }],
             yAxes: [{
+                //軸ラベル表示
+                scaleLabel: {
+                    display: true,
+                    labelString: 'STEP'
+                },
+                //X軸の範囲を指定
                 ticks: {
                     beginAtZero: true
                 }
-            }]
+            }] 
         }
     }
 });
