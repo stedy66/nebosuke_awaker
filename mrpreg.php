@@ -44,14 +44,22 @@ if($status==false){
     for ($i=1; $i<4; $i++) {
       $view="";
       $view.="<tr>";
-      $view.="<td id='action'>";
+      if ($i==3) {
+        $view.="<td class='action' id='ld'>";
+      } else {
+        $view.="<td class='action'>";
+      }
       $view.="<select name='STEP_ID".$i."'>";
       $view.="<option value=0 selected>--選択してください--</option>";
       $view.=$option;
       $view.="</select>";
       $view.="</td>";
-      $view.="<td id='description'><textarea name='DESCRIPTION".$i."'></textarea></td>";
-      $view.="<td id='time'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+      $view.="<td class='description'><textarea name='DESCRIPTION".$i."'></textarea></td>";
+      if ($i==3) {
+        $view.="<td class='time' id='rd'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+      } else {
+        $view.="<td class='time'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+      }
       $view.="</tr>";
       echo $view;
     }
@@ -59,25 +67,27 @@ if($status==false){
   </table>
   <div id="plus-bg"><p id="plus">+</p><p style="margin-left: 20px;">Actionを追加する</p></div>
   <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment"></textarea></div>
-  <input type="url" name="YOUTUBE" placeholder="YouTube動画のリンクを入れてください（任意）"/>
-  <p>みんなにシェア<input type="checkbox" name="SHARED"></p>
-  <input type="submit" value="登録" />
-  <p><a href="top2.php".php>トップに戻る</a></p>
+  <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube"/></div>
+  <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED"></div>
+  <div id="register-bg"><input type="submit" value="登録" id="register"/></div>
+  <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
 </form>
 
 <script>
   $("#plus").on("click", function() {
+    $('#ld').removeAttr('id');
+    $('#rd').removeAttr('id');
     <?php
       $view="";
       $view.="<tr>";
-      $view.="<td id='action'>";
+      $view.="<td class='action' id='ld'>";
       $view.="<select name='STEP_ID".$i."'>";
       $view.="<option value=0 selected>--選択してください--</option>";
       $view.=$option;
       $view.="</select>";
       $view.="</td>";
-      $view.="<td id='description'><textarea name='DESCRIPTION".$i."'></textarea></td>";
-      $view.="<td id='time'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+      $view.="<td class='description'><textarea name='DESCRIPTION".$i."'></textarea></td>";
+      $view.="<td class='time' id='rd'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
       $view.="</tr>";
       $i++;
     ?>
