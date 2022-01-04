@@ -62,7 +62,7 @@ $user = $stmt->fetch();
   <p>みんなのmorning routine</p>
   <p><a href="sharedmrp.php">すべて見る</a></p>
   <?php
-  //My MRの一覧取得
+  //みんなのMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
   $status = $stmt->execute();
   if($status==false){

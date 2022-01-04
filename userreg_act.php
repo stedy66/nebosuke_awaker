@@ -18,7 +18,7 @@ $pdo = db_conn();
 
 //2. 登録済みのlidとの重複チェック
 $stmt = $pdo->prepare("SELECT COUNT(*) FROM table4 WHERE USER_ID=:USER_ID"); 
-$stmt->bindValue(':USER_ID', $USER_ID, PDO::PARAM_STR);
+$stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);
 $status = $stmt->execute();
 //3. SQL実行時にエラーがある場合STOP
 if($status==false){
@@ -29,7 +29,7 @@ if ($count>0) {
   $_SESSION["duplicate"]=1;
   $_SESSION["success"]=1;
 }
-
+echo $count;
 //パスワードの一致チェック
 if ($lpw!=$lpw2) {
   $_SESSION["mismatch"]=1;

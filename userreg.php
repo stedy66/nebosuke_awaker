@@ -38,7 +38,7 @@ function confirm_test() {
       <input type="text" name="USER_ID" placeholder="4文字以上の英数字を入力してください" required value="<?=$_SESSION["USER_ID"]?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい"/>
       <?php
       if ($_SESSION["duplicate"]==1) {
-        echo "そのIDは使用できません、別のID名を指定してください";
+        echo "そのIDは使用できません、別のIDを指定してください";
         $_SESSION["duplicate"]=0;
       }
       ?>
