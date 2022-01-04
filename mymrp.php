@@ -24,10 +24,14 @@ $user = $stmt->fetch();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/mrplist.css">
   <title>Document</title>
 </head>
+
 <body>
-  <p>my morning routine一覧</p>
+  <header>my morning routine一覧</header>
+  <p style="margin: 20px auto 30px auto; width: 600px;"><a href="top2.php".php>トップに戻る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -37,7 +41,12 @@ $user = $stmt->fetch();
     sql_error($stmt);
   } else {
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ 
-      echo '<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view='';
+      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      $view.='<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view.='</div>';
+      echo $view;
     }
   }
   ?>
