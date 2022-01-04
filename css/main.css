@@ -11,4 +11,33 @@ header {
       -ms-flex-align: center;
           align-items: center;
 }
+
+#routine_name {
+  width: 60%;
+  height: 50px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+#routine_name_bgi {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-image: url("../upload/default_bg.jpg");
+  height: 400px;
+  width: 95%;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 /*# sourceMappingURL=main.css.map */
