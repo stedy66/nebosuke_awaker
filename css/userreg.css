@@ -7,7 +7,6 @@ body{
   margin: 0;
   padding: 100px 0px 20px;
   position: relative;
-  /* top: 200px; */
   overflow: hidden;
 }
   
@@ -27,34 +26,38 @@ body{
   transform: skewY(-7deg) translateY(-90px);
   z-index: -1;
 }
-/* Twitter */
-.button_twitter{
-  text-align: center;
+.a {
+  display: inline-block;
+  border-radius : 7%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  padding       : 16px 84px;   /* 余白       */
+  background    : #ffc900;     /* 背景色     */
+  color         : #000000;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #ffc900;    /* 枠の指定 */
   margin: 10px auto;
-}
-.button_twitter img{
-  border-radius: 8px;
-}
-.button_twitter p{
-  font-size: 20px;
-  color: #777777;
-  text-decoration: underline;
-  padding-top: 5px;
 }
 /* フォームcss */
 form{
   text-align: center;
 }
-/* IF,PW */
-.box{
-  margin: 30px auto;
-}
-.nid{
-  padding-right: 260px;
-  font-size: 20px;
+table{
+  text-align: center;
+  margin: 0px auto 30px;
+  border-collapse: separate;
+  border-spacing: 0px 10px;
+  background-color: #fef7e7;
+  border-radius:20px;
   color: #555555;
 }
-
+/* form th{
+  background-color: #ffc900;
+} */
+form td {
+  text-align: left;
+}
 .Column{
   width: 400px;
   height: 30px;
@@ -86,7 +89,7 @@ form{
   font-size     : 18pt;        /* 文字サイズ */
   text-align    : center;      /* 文字位置   */
   cursor        : pointer;     /* カーソル   */
-  padding       : 16px 73px;   /* 余白       */
+  padding       : 10px 30px;   /* 余白       */
   background    : #ffc900;     /* 背景色     */
   color         : #000000;     /* 文字色     */
   line-height   : 1em;         /* 1行の高さ  */
@@ -104,7 +107,6 @@ form{
   margin: 0;
   padding: 100px 0 10px;
   position: relative;
-  /* top: 200px; */
   overflow: hidden;
 }
 
