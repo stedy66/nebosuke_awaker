@@ -20,10 +20,14 @@ if($status==false){
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
   <title>Document</title>
   <script src="js/jquery-2.1.3.min.js"></script>
 </head>
+
 <body>
+<header>マイルーティン入力</header>
 <form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
   <input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください"/>
   <table id="table">
