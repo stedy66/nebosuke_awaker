@@ -1,0 +1,70 @@
+header {
+  background-color: #ffc900;
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body {
+  background-color: #fef7e7;
+}
+
+#routine_name {
+  width: 60%;
+  height: 50px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#routine_name_bgi {
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-image: url("../upload/default_bg.jpg");
+  height: 400px;
+  width: 98%;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.step {
+  margin: 20px auto 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 50px;
+  width: 98%;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.step p {
+  font-size: 20px;
+}
+
+.step .step_seq {
+  width: 10%;
+}
+/*# sourceMappingURL=mrdetail.css.map */
