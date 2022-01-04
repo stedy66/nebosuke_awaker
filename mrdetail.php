@@ -67,12 +67,12 @@ else {
     <!-- コメント -->
     <?php
       //nl2br関数はphpの改行コードをhtmlの改行タグに変換してくれる関数
-      echo '<p style="width: 70%; margin-left: auto; margin-right: auto;">'.nl2br($package["DESCRIPTION"]).'</p>';
+      echo '<p id="comment">'.nl2br($package["DESCRIPTION"]).'</p>';
     ?>
     <!-- YouTubeリンク（矢部さんのレイアウトには現れないので、要確認） -->
     <?php
     if ($package["YOUTUBE"]!="") {
-      echo '<p style="width: 70%; margin-left: auto; margin-right: auto;"><a href="'.$package["YOUTUBE"].'">YouTubeへリンク<a/></p>';
+      echo '<p style="margin: 20px auto 30px auto; width: 90%;"><a href="'.$package["YOUTUBE"].'">YouTubeへリンク<a/></p>';
     }
     ?>
     <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
@@ -90,13 +90,11 @@ else {
         $count = $stmt->fetchColumn();
         $view="";
         if ($count>0) {
-          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
-          $view.='「ダウンロード済みのモーニングルーティンです」';
-          $view.='</p>';
-          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
+          $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
           $view.='<a href="delete_from_mmr.php?MR_ID='.$MR_ID.'">';
-          $view.='「削除する（my morning routineから削除します）」';
+          $view.='削除する（my morning routineから削除します）';
           $view.='</a>';
+          $view.='　ダウンロード済みのモーニングルーティンです';
           $view.='</p>';
         } else {
           $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
@@ -108,14 +106,14 @@ else {
         echo $view;
       } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
         $view="";
-        $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
+        $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
         $view.='<a href="edit.php".php>';
         $view.='「編集する」';
         $view.='</a>';
         $view.='</p>';
         echo $view;
       }
-      echo '<p style="width: 70%; margin-left: auto; margin-right: auto;"><a href="top2.php".php>トップに戻る</a></p>';
+      echo '<p  style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>';
     ?>
 </body>
 </html>

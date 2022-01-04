@@ -54,8 +54,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 50px;
-  width: 98%;
+  height: 70px;
+  width: 90%;
   border-radius: 20px;
   background-color: #fff;
 }
@@ -65,6 +65,67 @@ body {
 }
 
 .step .step_seq {
+  width: 30px;
+  height: 100%;
+  background-color: #ffc900;
+  border-radius: 20px 0 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_name {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_period {
   width: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#comment {
+  margin: 20px auto 20px auto;
+  width: 90%;
+  border-radius: 20px;
+  background-color: #fff;
+  border: 2px solid #ffc900;
+  padding: 8px 8px;
+  font-size: 20px;
+  line-height: 150%;
 }
 /*# sourceMappingURL=mrdetail.css.map */
