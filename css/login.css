@@ -41,6 +41,9 @@ body{
   text-decoration: underline;
   padding-top: 5px;
 }
+.check{
+  color: red;
+}
 /* フォームcss */
 form{
   text-align: center;
