@@ -1,0 +1,128 @@
+body{
+    /* background-color: #fef7e7; */
+    background-color: #ffffff;
+}
+.header_colour {
+  width: 100%;
+  margin: 0;
+  padding: 100px 0px 20px;
+  position: relative;
+  /* top: 200px; */
+  overflow: hidden;
+}
+  
+.header_colour p {
+  width: 65%;
+  margin: 0 auto;
+}
+  
+.header_colour::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffc900;
+  transform: skewY(-7deg) translateY(-90px);
+  z-index: -1;
+}
+/* Twitter */
+.button_twitter{
+  text-align: center;
+  margin: 10px auto;
+}
+.button_twitter img{
+  border-radius: 8px;
+}
+.button_twitter p{
+  font-size: 20px;
+  color: #777777;
+  text-decoration: underline;
+  padding-top: 5px;
+}
+/* フォームcss */
+form{
+  text-align: center;
+}
+/* IF,PW */
+.box{
+  margin: 30px auto;
+}
+.nid{
+  padding-right: 260px;
+  font-size: 20px;
+  color: #555555;
+}
+
+.Column{
+  width: 400px;
+  height: 30px;
+  border-radius:5px;
+}
+
+.button1 {
+  display: inline-block;
+  border-radius : 7%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 16px 84px;   /* 余白       */
+  background    : #ffc900;     /* 背景色     */
+  color         : #000000;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #ffc900;    /* 枠の指定 */
+  margin: 10px auto;
+}
+.button1:hover {
+  color         : #ffc900;     /* 背景色     */
+  background    : #fef7e7;     /* 文字色     */
+}
+.button2 {
+  display: inline-block;
+  border-radius : 7%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 16px 73px;   /* 余白       */
+  background    : #ffc900;     /* 背景色     */
+  color         : #000000;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #ffc900;    /* 枠の指定 */
+  text-decoration: none;
+}
+.button2:hover {
+  color         : #ffc900;     /* 背景色     */
+  background    : #fef7e7;     /* 文字色     */
+}
+
+footer{
+
+}
+.footer_colour {
+  width: 100%;
+  margin: 0;
+  padding: 100px 0 10px;
+  position: relative;
+  /* top: 200px; */
+  overflow: hidden;
+}
+
+.footer_colour h1 {
+  width: 65%;
+  margin: 0 auto;
+}
+
+.footer_colour::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffc900;
+  transform: skewY(-7deg) translateY(90px);
+  z-index: -1;
+}

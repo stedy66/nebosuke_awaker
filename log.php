@@ -8,11 +8,11 @@ include('funcs.php');
 $pdo = db_conn();
 
 //LOGINチェック → funcs.phpへ関数化しましょう！
-sschk();
+//sschk();
 
 
 $end_time = '';
-$period = '';
+$step = '';
 
 
 //2．データ登録SQL作成
@@ -23,17 +23,20 @@ $status = $stmt->execute();
 //loop through the returned data
 while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-    $end_time = $end_time . '"'.date('H:i', strtotime($r["end_time"])).'",';
-    $period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+    $end_time = $end_time .'"' .date('H:i', strtotime($r["end_time"])) .'",';
+    //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+    $step = $step .'"' .$r["step"] .'",';
     $date = date('m月d日', strtotime($r["date"]));
 
 }
 
+//var_dump($end_time);
 $end_time = trim($end_time,",");
-$period = trim($period,",");
-// echo $period;
-
-
+//$step = trim($step,",");
+$key = array_key_last($end_time);
+//echo $end_time[$key];
+//echo end($end_time);
+//var_dump($end_time);
 
 ?>
 
@@ -43,27 +46,37 @@ $period = trim($period,",");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/log.css">
     <title>私の記録</title>
 </head>
 <body>
-<h2 style="text-align: center">ログ</h2>
-<h1 style="text-align: center"><?=$date?></h1>
-<div style="width:600px;margin: auto;">
+<!-- Main[Start] -->
+<header class="triangle01">
+<p>ログ</p>
+</header>
+<section id = "main">
+<h2 style="text-align: center"><?=$date?></h2>
+<div class="chart">
 <canvas id="myChart" width="600" height="300"></canvas>
 </div>
+<form class="form" method="POST" action="logshare_act.php">
 
-<!-- Main[Start] -->
-<section id = "main">
-<div style="text-align: center">
-    <img src="./img/kao1.png" alt="">
-    <img src="./img/kao2.png" alt="">
-    <img src="./img/kao3.png" alt="">
-    <img src="./img/kao4.png" alt="">
-    <img src="./img/kao5.png" alt="">
-</div>
-<form method="POST" action="logshare_act.php">
-  <div class="jumbotron">
-    <table border="1" cellpadding="5" cellspacing="0" width="600" style="margin: auto">
+    <input type="text" name="ROUTINE_NAME" class="comment" placeholder="コメント"/><br>
+
+    <input type="radio" name="radio" value="1" id="radio1">
+    <label for="radio1"></label>
+    <input type="radio" name="radio" value="2" id="radio2">
+    <label for="radio2"></label>
+    <input type="radio" name="radio" value="3" id="radio3">
+    <label for="radio3"></label>
+    <input type="radio" name="radio" value="4" id="radio4">
+    <label for="radio4"></label>
+    <input type="radio" name="radio" value="5" id="radio5">
+    <label for="radio5"></label>
+
+    <div class="jumbotron">
+      <table border="1" cellpadding="5" cellspacing="0" >
         <tr>
         <th>Action</th>     
         <th>Time</th> 
@@ -76,6 +89,7 @@ $period = trim($period,",");
         $stmt = $pdo->prepare("SELECT* FROM table3_test");
         $status = $stmt->execute();
 
+        $i = 1;
         //３．データ表示
         if($status==false) {
             //SQLエラーの場合
@@ -83,17 +97,20 @@ $period = trim($period,",");
         }else{
             //SQL成功の場合
             while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ //データ取得数分繰り返す
-                echo '<td>'.$r["action"].'</td>';
-                echo '<td>'.$r["period"].'</td>'; 
-                echo '<td>'.$r["date"].'</td>';
+                echo '<tr><td><name="action" value="5">'.$r["action"].'</td>';
+                echo '<td>'.$r["time"].'min</td>'; 
+                echo '<td><time>'.date('H:i', strtotime($r["plan"])).'</time></td>'; 
+                //echo '<td>'.$r["date"].'</td>';
                 echo '<td><time>'.date('H:i', strtotime($r["end_time"])).'</time></td></tr>';
             }
         }
         ?>
-    </table>
+      </table>
+        <div class="btn">
+            <input type="submit" class="button" value="記録シェア">
+        </div>
 
-    <div style="text-align: center"><input type="submit" value="記録をシェア"></div>
-  </div>
+    </div>
 </form>
 
 
@@ -103,40 +120,68 @@ $period = trim($period,",");
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
+    //グラフタイプ
     type: 'line',
+    //データ
     data: {
+        //X軸データ
         labels: [<?php echo $end_time ?>],//各棒の名前（name)
-        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'ほげ'],//各棒の名前（name)
+        //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'ほげ'],//各棒の名前（name)
+        //labels: ['09:30', '11:10', '13:00', '15:00', '18:30', '19:50'],
+        //データセット
         datasets: [{
             label: '覚醒度',
-            //data: [<?php echo $period ?>],//各縦棒の高さ(値段)
-            data: [3, 10, 3, 5, 15, 20, 10, 30, 15, 100],//各縦棒の高さ(値段)
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                // 'rgba(54, 162, 235, 0.2)',
-                // 'rgba(255, 206, 86, 0.2)',
-                // 'rgba(75, 192, 192, 0.2)',
-                // 'rgba(153, 102, 255, 0.2)',
-                // 'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                // 'rgba(54, 162, 235, 1)',
-                // 'rgba(255, 206, 86, 1)',
-                // 'rgba(75, 192, 192, 1)',
-                // 'rgba(153, 102, 255, 1)',
-                // 'rgba(255, 159, 64, 1)'
-            ],
+            //Y軸データ
+            data: [<?php echo $step ?>],//各縦棒の高さ(値段)
+            //data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],//各縦棒の高さ(値段)
+            //線の色
+            backgroundColor: 'rgba(255, 201, 0, 0.2)',
+            //塗りつぶしの色
+            borderColor: 'rgba(255, 201, 0, 1)',
             borderWidth: 1
         }]
     },
+    //グラフ設定
     options: {
+        //凡例は非表示
+        //legend: {
+        //    display: false
+        //},
         scales: {
+            //X軸
+            xAxes: [{
+                //軸ラベル表示
+                scaleLabel: {
+                    display: true,
+                //    labelString: 'TIME'
+                },
+                //ここで軸を時間を設定する
+                type: 'time',
+                time: {
+                    parser: 'HH:mm',
+                    unit: 'minute',
+                    stepSize: 30,
+                    displayFormats: {
+                        'hour': 'HH:mm'
+                    }
+                },
+                //X軸の範囲を指定
+                ticks: {
+                    min: '07:03',
+                    max: '10:21'//'end($end_time)';
+                }
+            }],
             yAxes: [{
+                //軸ラベル表示
+                scaleLabel: {
+                    display: true,
+                    labelString: 'STEP'
+                },
+                //X軸の範囲を指定
                 ticks: {
                     beginAtZero: true
                 }
-            }]
+            }] 
         }
     }
 });
