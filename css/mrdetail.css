@@ -58,6 +58,8 @@ body {
   width: 90%;
   border-radius: 20px;
   background-color: #fff;
+  -webkit-box-shadow: 3px 3px #ccc;
+          box-shadow: 3px 3px #ccc;
 }
 
 .step p {

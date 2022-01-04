@@ -14,6 +14,7 @@ $pdo = db_conn();
   <title>Document</title>
 </head>
 <body>
+  <p  style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
   <p>みんなのmorning routine一覧</p>
   <?php
   //My MRの一覧取得

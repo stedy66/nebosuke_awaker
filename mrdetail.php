@@ -97,9 +97,9 @@ else {
           $view.='　ダウンロード済みのモーニングルーティンです';
           $view.='</p>';
         } else {
-          $view.='<p style="width: 70%; margin-left: auto; margin-right: auto;">';
+          $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
           $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
-          $view.='「ダウンロードする・実行する」';
+          $view.='ダウンロードする';
           $view.='</a>';
           $view.='</p>';
         }
@@ -108,7 +108,7 @@ else {
         $view="";
         $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
         $view.='<a href="edit.php".php>';
-        $view.='「編集する」';
+        $view.='編集する';
         $view.='</a>';
         $view.='</p>';
         echo $view;
