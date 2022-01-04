@@ -66,8 +66,10 @@ else {
     ?>
     <!-- コメント -->
     <?php
+      if ($package["DESCRIPTION"]!="") {
       //nl2br関数はphpの改行コードをhtmlの改行タグに変換してくれる関数
-      echo '<p id="comment">'.nl2br($package["DESCRIPTION"]).'</p>';
+        echo '<p id="comment">'.nl2br($package["DESCRIPTION"]).'</p>';
+      }
     ?>
     <!-- YouTubeリンク（矢部さんのレイアウトには現れないので、要確認） -->
     <?php
