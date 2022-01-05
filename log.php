@@ -16,18 +16,24 @@ $step = '';
 
 //2．データ登録SQL作成
 //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-$stmt = $pdo->prepare("SELECT* FROM table5");
+$stmt = $pdo->prepare("SELECT* FROM table5 LEFT JOIN table1_1 ON table5.MR_ID=table1_1.MR_ID WHERE table5.USER_ID=:USER_ID AND table5.DATE=:DATE");
+$stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+$stmt->bindValue(':DATE', $_GET["DATE"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
 $status = $stmt->execute();
+if($status==false) {
+    sql_error($stmt);
+}
+$r = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //loop through the returned data
-while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
+// while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
     
-    $plan_time .= '"' . $r["plan"] . '",';
-    $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
-    //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
-    $step = $step .'"' .$r["action"] .'",';
+//     $plan_time .= '"' . $r["plan"] . '",';
+//     $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
+//     //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+//     $step = $step .'"' .$r["action"] .'",';
 
-}
+// }
 
 $plan_time = trim($plan_time,",");
 //var_dump($end_time);
@@ -52,10 +58,10 @@ $end_time = trim($end_time,",");
 <body>
 <!-- Main[Start] -->
 <header class="triangle01">
-<p><?php echo date('y年m月d日', strtotime($_GET["DATE"]));?>のモーニングルーティンログ</p>
+<p><?php echo date('Y年m月d日', strtotime($_GET["DATE"]));?>のログ</p>
 </header>
 <section id = "main">
-<h2 style="text-align: center"><?=$date?></h2>
+<h2 style="text-align: center"><?=$r["ROUTINE_NAME"]?></h2>
 <div class="chart">
 <canvas id="myChart" width="600" height="300"></canvas>
 </div>
@@ -77,10 +83,17 @@ $end_time = trim($end_time,",");
     <div class="jumbotron">
       <table border="1" cellpadding="5" cellspacing="0" >
         <tr>
-        <th>Action</th>     
-        <th>Time</th> 
-        <th>Plan</th>
-        <th>Practice</th>
+            <th>Action</th>     
+            <th>Time</th> 
+            <th>Plan</th>
+            <th>Practice</th>
+        </tr>
+
+        <tr>
+            <td>スタート</td>     
+            <td></td> 
+            <td><?=date('H:i', strtotime($r["START_TIME"]))?></td>
+            <td><?=date('H:i', strtotime($r["START_TIME"]))?></td>
         </tr>
         <?php
         //2．データ登録SQL作成

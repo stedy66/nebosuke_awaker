@@ -16,5 +16,5 @@ if($status==false) {
 }
 
 //mysql_insert_id()は直近でinsertした行のidを取得するphpの関数
-redirect("log.php?USER_ID=".$_SESSION["USER_ID"]."&DATE=".$_POST["DATE"]);
+redirect("log.php?DATE=".$_POST["DATE"]);
 ?>
