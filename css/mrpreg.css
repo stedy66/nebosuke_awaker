@@ -164,21 +164,37 @@ textarea {
   width: 90%;
 }
 
-#register-bg {
-  margin: 10px auto 0 auto;
+.register-bg {
+  margin: 20px auto 20px auto;
   width: 90%;
 }
 
-#register {
+.register {
   width: 100%;
   height: 80px;
   border-radius: 10px;
   padding: 8px 8px;
   border: none;
   background-color: #ffc900;
+  text-align: center;
 }
 
-#register:hover {
+.register:hover {
+  cursor: pointer;
+}
+
+.delete {
+  width: 100%;
+  height: 80px;
+  border-radius: 10px;
+  padding: 8px 8px;
+  border: none;
+  background-color: #aaa;
+  text-align: center;
+  font-size: 18px;
+}
+
+.delete:hover {
   cursor: pointer;
 }
 /*# sourceMappingURL=mrpreg.css.map */

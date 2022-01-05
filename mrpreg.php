@@ -4,7 +4,7 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-//２．ユーザー取得SQL作成
+//２．MRPステップ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM table1_2");
 $status = $stmt->execute();
 
@@ -28,6 +28,14 @@ if($status==false){
 
 <body>
 <header>マイルーティン入力</header>
+
+<script>
+function confirm_test() {
+    var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
+    return select;
+}
+</script>
+
 <form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
   <div id="routine_name_bgi"><input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください" id="routine_name"/></div>
   <table id="table">
@@ -69,7 +77,7 @@ if($status==false){
   <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment"></textarea></div>
   <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube"/></div>
   <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED"></div>
-  <div id="register-bg"><input type="submit" value="登録" id="register"/></div>
+  <div class="register-bg"><input type="submit" value="登録" class="register"/></div>
   <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
 </form>
 
