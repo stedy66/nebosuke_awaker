@@ -19,7 +19,7 @@ $pdo = db_conn();
   <header>みんなのmorning routine一覧</header>
   <p style="margin: 20px auto 30px auto; width: 600px;"><a href="top2.php".php>トップに戻る</a></p>
   <?php
-  //My MRの一覧取得
+  //シェアされたMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
   $status = $stmt->execute();
   if($status==false){
@@ -27,10 +27,12 @@ $pdo = db_conn();
   } else {
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ 
       $view='';
+      $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
       $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
-      $view.='<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view.='<p>'.$r["ROUTINE_NAME"].'<p>';
       $view.='</div>';
+      $view.='</a>';
       echo $view;
     }
   }

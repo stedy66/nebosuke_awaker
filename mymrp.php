@@ -41,11 +41,13 @@ $user = $stmt->fetch();
     sql_error($stmt);
   } else {
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ 
-      $view='';
+      $view='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='';
       $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
-      $view.='<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view.='<p>'.$r["ROUTINE_NAME"].'<p>';
       $view.='</div>';
+      $view.='</a>';
       echo $view;
     }
   }

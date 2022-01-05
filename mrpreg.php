@@ -4,7 +4,7 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-//２．ユーザー取得SQL作成
+//２．MRPステップ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM table1_2");
 $status = $stmt->execute();
 

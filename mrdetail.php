@@ -109,7 +109,7 @@ else {
       } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
         $view="";
         $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
-        $view.='<a href="edit.php".php>';
+        $view.='<a href="edit.php?MR_ID='.$MR_ID.'".php>';
         $view.='編集する';
         $view.='</a>';
         $view.='</p>';

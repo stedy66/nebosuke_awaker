@@ -4,13 +4,28 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-//２．ユーザー取得SQL作成
+//２．MRPステップ取得SQL作成
 $stmt = $pdo->prepare("SELECT * FROM table1_2");
 $status = $stmt->execute();
 
 //3. SQL実行時にエラーがある場合STOP
 if($status==false){
   sql_error($stmt);
+}
+
+//4. 自分で作成したモーニングルーティンかを判定
+$stmt2 = $pdo->prepare("SELECT * FROM table1_1 WHERE MR_ID=:MR_ID");
+$stmt2->bindValue(":MR_ID", $_GET["MR_ID"], PDO::PARAM_INT);
+$status = $stmt2->execute();
+if($status==false){
+  sql_error($stmt2);
+}else{
+  $package = $stmt2->fetch();
+  if ($package["USER_ID"]!=$_SESSION["USER_ID"]) {
+    echo '<p>編集可能なMRではありません。</p>';
+    echo '<p><a href="top2.php".php>トップに戻る</a></p>';
+    exit();
+  }
 }
 ?>
 
@@ -29,7 +44,7 @@ if($status==false){
 <body>
 <header>マイルーティン編集</header>
 <form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
-  <div id="routine_name_bgi"><input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください" id="routine_name"/></div>
+  <div id="routine_name_bgi"><input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください" id="routine_name" value="<?=$package['ROUTINE_NAME']?>"/></div>
   <table id="table">
     <tr>
       <td id="lu" style="background-color: #ffc900; border-right: 2px solid #fff;">Action</td>
@@ -66,9 +81,9 @@ if($status==false){
     ?>
   </table>
   <div id="plus-bg"><p id="plus">+</p><p style="margin-left: 20px;">Actionを追加する</p></div>
-  <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment"></textarea></div>
-  <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube"/></div>
-  <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED"></div>
+  <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment" value="<?=$package['COMMENT']?>"></textarea></div>
+  <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube" value="<?=$package['YOUTUBE']?>"/></div>
+  <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED" value="<?=$package['SHARED']?>"></div>
   <div id="register-bg"><input type="submit" value="登録" id="register"/></div>
   <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
 </form>
