@@ -1,0 +1,73 @@
+body{
+    background-color: #fef7e7;
+}
+header{
+  text-align: center;
+  background-color: #ffc900;
+  font-size: 40px;
+  width: 100%;
+  height: 65px;
+  padding-top: 25px;
+}
+h2{
+  font-size: 30px;
+  margin: 30px;
+}
+.a{
+  padding-left: 100px;
+  font-size: 15px;
+  color: #555555;
+}
+.comment{
+  margin: 0px auto 30px;
+  text-align: left;
+  font-size: 20px;
+  color: #555555;
+  background-color: #ffffff;
+  border-color: #ffc900;
+  border-style: solid;
+  border-width: 3px;
+  width: 600px;
+  height: 50px;
+  border-radius: 10px;
+  padding-top: 25px;
+}
+
+/* グラフcss */
+.chart{
+  width: 700px;
+  margin: auto;
+}
+  
+/* ログ表css */
+table {
+  border: 1px solid #fef7e7;
+  border-collapse: separate;
+  overflow: hidden;
+  border-spacing: 0;
+  border-radius: 10px;
+  text-align: center;
+  margin: 30px auto;
+  width: 700px;
+  font-size: 15px;
+}
+table th, table td {
+  padding: 0.6em 3em;
+  vertical-align: middle;
+  border-right: 1px solid #ffc900;
+  border-bottom: 1px solid #ffc900;
+}
+table th:last-child, table td:last-child {
+  border-right: none;
+}
+table tr:last-child th, table tr:last-child td {
+  border-bottom: none;
+}
+table th {
+  background: #ffc900;
+  border-right: 1px solid #ffffff; 
+}
+table td {
+  background: #fff;
+}
+  
