@@ -197,4 +197,12 @@ textarea {
 .delete:hover {
   cursor: pointer;
 }
+
+.text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px auto 0 auto;
+  width: 90%;
+}
 /*# sourceMappingURL=mrpreg.css.map */

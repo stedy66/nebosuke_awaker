@@ -14,20 +14,18 @@ $plan_time ='';
 $end_time = '';
 $step = '';
 
-
 //2．データ登録SQL作成
 //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-$stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
+$stmt = $pdo->prepare("SELECT* FROM table5");
 $status = $stmt->execute();
 
 //loop through the returned data
 while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-
+    
     $plan_time .= '"' . $r["plan"] . '",';
     $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
     //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
     $step = $step .'"' .$r["action"] .'",';
-    $date = date('m月d日', strtotime($r["date"]));
 
 }
 
@@ -54,7 +52,7 @@ $end_time = trim($end_time,",");
 <body>
 <!-- Main[Start] -->
 <header class="triangle01">
-<p>ログ</p>
+<p><?php echo date('y年m月d日', strtotime($_GET["DATE"]));?>のモーニングルーティンログ</p>
 </header>
 <section id = "main">
 <h2 style="text-align: center"><?=$date?></h2>
@@ -101,7 +99,6 @@ $end_time = trim($end_time,",");
                 echo '<tr><td><name="action" value="5">'.$r["action"].'</td>';
                 echo '<td>'.$r["time"].'min</td>'; 
                 echo '<td><time>'.date('H:i', strtotime($r["plan"])).'</time></td>'; 
-                //echo '<td>'.$r["date"].'</td>';
                 echo '<td><time>'.date('H:i', strtotime($r["end_time"])).'</time></td></tr>';
             }
         }
