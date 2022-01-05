@@ -30,9 +30,37 @@ $user = $stmt->fetch();
 <body>
    
   <header>
-  <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
-  <a href="top2.php" class="home" >ホーム</a>
+    <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
+    <div class="home" >ホーム</div>   
+    <div class="nav_item"><a href="#">ログアウト</a></div>
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <!--ここからメニュー-->
+        <div class="menu-content">
+            <ul>
+                <li>
+                    <a href="#">ログアウト</a>
+                <li>
+                    <a href="mrpreg.php">モーニングルーティン新規登録</a>
+                </li>
+                <li>
+                    <a href="mymrp.php">マイモーニングルーティン</a>
+                </li>
+                <li>
+                    <a href="sharedmrp.php">みんなのモーニングルーティン</a>
+                </li>
+                <li>
+                    <a href="log.php">私の記録</a>
+                </li>
+                <li>
+                    <a href="logshare.php">みんなの記録</a>
+                </li>
 
+            </ul>
+        </div>
+        <!--ここまでメニュー-->
+    </div>
   </header>
   <?php
     if (isset($_SESSION["download"]) && $_SESSION["download"]==1) {
@@ -44,7 +72,7 @@ $user = $stmt->fetch();
       $_SESSION["delete"]=0;
     }
   ?>
-  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"].さん?></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"].'さん'?></p>
   <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
   <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a href="mymrp.php">すべて見る</a></p>
   <?php
@@ -64,10 +92,14 @@ $user = $stmt->fetch();
       $view.='';
       $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
-      $view.='<p>'.$r["ROUTINE_NAME"].'<p>';
       $view.='</div>';
       $view.='</a>';
       echo $view;
+      $view2='<div class="mrp_name">';
+      $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view2.='<p>'.$r["ROUTINE_NAME"].'<p>';
+      $view2.='</div>';
+      echo $view2;
 
       // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
@@ -91,10 +123,16 @@ $user = $stmt->fetch();
       $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
       $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
-      $view.='<p>'.$r["ROUTINE_NAME"].'</p>';
       $view.='</div>';
       $view.='</a>';
       echo $view;
+      
+      $view2='';
+      $view2='<div class="mrp_name">';
+      $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view2.='<p>'.$r["ROUTINE_NAME"].'</p>';
+      $view2.='</div>';
+      echo $view2;
 
       // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
