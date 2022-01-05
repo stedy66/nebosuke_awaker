@@ -8,28 +8,30 @@ include('funcs.php');
 $pdo = db_conn();
 
 //LOGINチェック → funcs.phpへ関数化しましょう！
-//sschk();
+sschk();
 
-
+$plan_time ='';
 $end_time = '';
 $step = '';
 
 
 //2．データ登録SQL作成
 //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-$stmt = $pdo->prepare("SELECT* FROM table3_test");
+$stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
 $status = $stmt->execute();
 
 //loop through the returned data
 while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-    $end_time = $end_time .'"' .date('H:i', strtotime($r["end_time"])) .'",';
+    $plan_time .= '"' . $r["plan"] . '",';
+    $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
     //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
-    $step = $step .'"' .$r["step"] .'",';
+    $step = $step .'"' .$r["action"] .'",';
     $date = date('m月d日', strtotime($r["date"]));
 
 }
 
+$plan_time = trim($plan_time,",");
 //var_dump($end_time);
 $end_time = trim($end_time,",");
 //$step = trim($step,",");
@@ -37,7 +39,6 @@ $key = array_key_last($end_time);
 //echo $end_time[$key];
 //echo end($end_time);
 //var_dump($end_time);
-
 ?>
 
 
@@ -86,7 +87,7 @@ $key = array_key_last($end_time);
         <?php
         //2．データ登録SQL作成
         //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-        $stmt = $pdo->prepare("SELECT* FROM table3_test");
+        $stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
         $status = $stmt->execute();
 
         $i = 1;
@@ -125,20 +126,30 @@ var myChart = new Chart(ctx, {
     //データ
     data: {
         //X軸データ
-        labels: [<?php echo $end_time ?>],//各棒の名前（name)
+        labels: [<?php echo $step ?>],//各棒の名前（name)
         //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'ほげ'],//各棒の名前（name)
         //labels: ['09:30', '11:10', '13:00', '15:00', '18:30', '19:50'],
         //データセット
         datasets: [{
-            label: '覚醒度',
+            label: '覚醒度（実績）',
             //Y軸データ
-            data: [<?php echo $step ?>],//各縦棒の高さ(値段)
+            data: [<?php echo $end_time ?>],//各縦棒の高さ(値段)
             //data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],//各縦棒の高さ(値段)
             //線の色
-            backgroundColor: 'rgba(255, 201, 0, 0.2)',
-            //塗りつぶしの色
             borderColor: 'rgba(255, 201, 0, 1)',
-            borderWidth: 1
+            borderWidth: 1,
+            //塗りつぶしの色
+            fill: false
+        }, {
+            label: '覚醒度（プラン）',
+            //Y軸データ
+            data: [<?php echo $plan_time ?>],//各縦棒の高さ(値段)
+            //data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],//各縦棒の高さ(値段)
+            //線の色
+            borderColor: 'rgba(255, 0, 0, 1)',
+            borderWidth: 1,
+            //塗りつぶしの色
+            fill: false
         }]
     },
     //グラフ設定
@@ -149,7 +160,7 @@ var myChart = new Chart(ctx, {
         //},
         scales: {
             //X軸
-            xAxes: [{
+            yAxes: [{
                 //軸ラベル表示
                 scaleLabel: {
                     display: true,
@@ -167,15 +178,14 @@ var myChart = new Chart(ctx, {
                 },
                 //X軸の範囲を指定
                 ticks: {
-                    min: '07:03',
-                    max: '10:21'//'end($end_time)';
+                    min: '07:00',
+                    max: '11:00'//'end($end_time)';
                 }
             }],
-            yAxes: [{
+            xAxes: [{
                 //軸ラベル表示
                 scaleLabel: {
                     display: true,
-                    labelString: 'STEP'
                 },
                 //X軸の範囲を指定
                 ticks: {
