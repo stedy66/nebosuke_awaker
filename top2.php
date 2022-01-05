@@ -31,7 +31,8 @@ $user = $stmt->fetch();
    
   <header>
   <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
-  <a href="top2.php">ホーム
+  <a href="top2.php" class="home" >ホーム</a>
+
   </header>
   <?php
     if (isset($_SESSION["download"]) && $_SESSION["download"]==1) {
@@ -43,9 +44,9 @@ $user = $stmt->fetch();
       $_SESSION["delete"]=0;
     }
   ?>
-  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"]?></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"].さん?></p>
   <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
-  <p style="margin: 20px auto 30px auto; width: 600px;">my morning routine　<a href="mymrp.php">すべて見る</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a href="mymrp.php">すべて見る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -59,12 +60,21 @@ $user = $stmt->fetch();
       if ($i>=3) {
         break;
       } 
-      echo '<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='';
+      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      $view.='<p>'.$r["ROUTINE_NAME"].'<p>';
+      $view.='</div>';
+      $view.='</a>';
+      echo $view;
+
+      // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
     }
   }
   ?>
-  <p style="margin: 20px auto 30px auto; width: 600px;">みんなのmorning routine　<a href="sharedmrp.php">すべて見る</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなのモーニングルーティン　<a href="sharedmrp.php">すべて見る</a></p>
   <?php
   //みんなのMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
@@ -77,7 +87,16 @@ $user = $stmt->fetch();
       if ($i>=3) {
         break;
       } 
-      echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $view='';
+      $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      $view.='<p>'.$r["ROUTINE_NAME"].'</p>';
+      $view.='</div>';
+      $view.='</a>';
+      echo $view;
+
+      // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
     }
   }
