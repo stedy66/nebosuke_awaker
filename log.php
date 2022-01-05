@@ -24,6 +24,7 @@ if($status==false) {
     sql_error($stmt);
 }
 $r = $stmt->fetch(PDO::FETCH_ASSOC);
+$time=date('H:i', strtotime($r["START_TIME"]));
 
 //loop through the returned data
 // while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -84,6 +85,7 @@ $end_time = trim($end_time,",");
       <table border="1" cellpadding="5" cellspacing="0" >
         <tr>
             <th>Action</th>     
+            <th>Description</th>     
             <th>Time</th> 
             <th>Plan</th>
             <th>Practice</th>
@@ -92,13 +94,15 @@ $end_time = trim($end_time,",");
         <tr>
             <td>スタート</td>     
             <td></td> 
-            <td><?=date('H:i', strtotime($r["START_TIME"]))?></td>
-            <td><?=date('H:i', strtotime($r["START_TIME"]))?></td>
+            <td></td> 
+            <td><?=$time?></td>
+            <td><?=$time?></td>
         </tr>
         <?php
         //2．データ登録SQL作成
         //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-        $stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
+        $stmt = $pdo->prepare("SELECT* FROM table1_3 LEFT JOIN table1_2 ON table1_3.STEP_ID=table1_2.STEP_ID WHERE MR_ID=:MR_ID ORDER BY SEQUENCE");
+        $stmt->bindValue(':MR_ID', $r["MR_ID"], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
         $status = $stmt->execute();
 
         $i = 1;
@@ -108,10 +112,13 @@ $end_time = trim($end_time,",");
             sql_error($stmt);
         }else{
             //SQL成功の場合
-            while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ //データ取得数分繰り返す
-                echo '<tr><td><name="action" value="5">'.$r["action"].'</td>';
-                echo '<td>'.$r["time"].'min</td>'; 
-                echo '<td><time>'.date('H:i', strtotime($r["plan"])).'</time></td>'; 
+            while( $r2 = $stmt->fetch(PDO::FETCH_ASSOC)){ //データ取得数分繰り返す
+                // $time+=$r2["PERIOD"];
+                $time = date('H:i',mktime(explode(':',$time)[0], explode(':',$time)[1]+$r2["PERIOD"]));
+                echo '<tr><td><name="action" value="5">'.$r2["STEP_NAME"].'</td>';
+                echo '<td>'.$r2["DESCRIPTION"].'</td>'; 
+                echo '<td>'.$r2["PERIOD"].'min</td>'; 
+                echo '<td><time>'.$time.'</time></td>'; 
                 echo '<td><time>'.date('H:i', strtotime($r["end_time"])).'</time></td></tr>';
             }
         }
@@ -123,7 +130,6 @@ $end_time = trim($end_time,",");
 
     </div>
 </form>
-
 
 </section>
 <!-- Main[End] -->
