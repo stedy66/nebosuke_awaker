@@ -20,7 +20,6 @@ $user = $stmt->fetch();
 
 <!DOCTYPE html>
 <html lang="en">
-    <link href="css/top2style.css" rel="stylesheet">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,27 +27,6 @@ $user = $stmt->fetch();
   <title>Document</title>
 </head>
 <body>
-    <!-- Header Start -->
-    <header class="site-header">
-      <div class="wrapper site-header__wrapper">
-        <a href="#" class="brand">ホーム</a>
-        <nav class="nav">
-          <button class="nav__toggle" aria-expanded="false" type="button">
-            menu
-          </button>
-          <!-- <ul class="nav__wrapper">
-            <li class="nav__item"><a href="#">Home</a></li>
-            <li class="nav__item"><a href="#">About</a></li>
-            <li class="nav__item"><a href="#">Services</a></li>
-            <li class="nav__item"><a href="#">Hire us</a></li>
-            <li class="nav__item"><a href="#">Contact</a></li>
-          </ul> -->
-        </nav>
-      </div>
-    </header>
-    <!-- Header End -->
-
-
   <?php
     if (isset($_SESSION["download"]) && $_SESSION["download"]==1) {
       echo "<p>ダウンロードしました。</p>";
@@ -61,8 +39,7 @@ $user = $stmt->fetch();
   ?>
   <p>こんにちは、<?=$user["USER_NAME"]?></p>
   <p><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
-  <p>my morning routine</p>
-  <p><a href="mymrp.php">すべて見る</a></p>
+  <p>my morning routine　<a href="mymrp.php">すべて見る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -81,8 +58,7 @@ $user = $stmt->fetch();
     }
   }
   ?>
-  <p>みんなのmorning routine</p>
-  <p><a href="sharedmrp.php">すべて見る</a></p>
+  <p>みんなのmorning routine　<a href="sharedmrp.php">すべて見る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");

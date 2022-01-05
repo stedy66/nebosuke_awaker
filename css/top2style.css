@@ -5,7 +5,7 @@
 .brand {
     position: fixed;
   left: 50%;
-  transform: translateX(-50%)
+  transform: translateX(-50%);
   font-weight: bold;
   font-size: 20px; 
 }
