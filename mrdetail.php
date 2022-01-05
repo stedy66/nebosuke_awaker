@@ -63,59 +63,59 @@ else {
       echo $view;
       }
     }
-    ?>
-    <!-- コメント -->
-    <?php
-      if ($package["DESCRIPTION"]!="") {
-      //nl2br関数はphpの改行コードをhtmlの改行タグに変換してくれる関数
-        echo '<p id="comment">'.nl2br($package["DESCRIPTION"]).'</p>';
-      }
-    ?>
-    <!-- YouTubeリンク（矢部さんのレイアウトには現れないので、要確認） -->
-    <?php
-    if ($package["YOUTUBE"]!="") {
-      echo '<p style="margin: 20px auto 30px auto; width: 90%;"><a href="'.$package["YOUTUBE"].'">YouTubeへリンク<a/></p>';
+  ?>
+  <!-- コメント -->
+  <?php
+    if ($package["DESCRIPTION"]!="") {
+    //nl2br関数はphpの改行コードをhtmlの改行タグに変換してくれる関数
+      echo '<p id="comment">'.nl2br($package["DESCRIPTION"]).'</p>';
     }
-    ?>
-    <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
-    <?php
-      if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]!=$package["USER_ID"]){
-        //2. 登録済みのUSER_IDとの重複チェック
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM table2 WHERE USER_ID=:USER_ID AND MR_ID=:MR_ID"); 
-        $stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);
-        $stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_STR);
-        $status = $stmt->execute();
-        //3. SQL実行時にエラーがある場合STOP
-        if($status==false){
-          sql_error($stmt);
-        }
-        $count = $stmt->fetchColumn();
-        $view="";
-        if ($count>0) {
-          $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
-          $view.='<a href="delete_from_mmr.php?MR_ID='.$MR_ID.'">';
-          $view.='削除する（my morning routineから削除します）';
-          $view.='</a>';
-          $view.='　ダウンロード済みのモーニングルーティンです';
-          $view.='</p>';
-        } else {
-          $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
-          $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
-          $view.='ダウンロードする';
-          $view.='</a>';
-          $view.='</p>';
-        }
-        echo $view;
-      } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
-        $view="";
+  ?>
+  <!-- YouTubeリンク -->
+  <?php
+  if ($package["YOUTUBE"]!="") {
+    echo '<p style="margin: 20px auto 30px auto; width: 90%;"><a href="'.$package["YOUTUBE"].'">YouTubeへリンク<a/></p>';
+  }
+  ?>
+  <!-- ログイン状態なら「ダウンロードする・実行する」ボタンを追加 -->
+  <?php
+    if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]!=$package["USER_ID"]){
+      //2. 登録済みのUSER_IDとの重複チェック
+      $stmt = $pdo->prepare("SELECT COUNT(*) FROM table2 WHERE USER_ID=:USER_ID AND MR_ID=:MR_ID"); 
+      $stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);
+      $stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_STR);
+      $status = $stmt->execute();
+      //3. SQL実行時にエラーがある場合STOP
+      if($status==false){
+        sql_error($stmt);
+      }
+      $count = $stmt->fetchColumn();
+      $view="";
+      if ($count>0) {
         $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
-        $view.='<a href="edit.php?MR_ID='.$MR_ID.'".php>';
-        $view.='編集する';
+        $view.='<a href="delete_from_mmr.php?MR_ID='.$MR_ID.'">';
+        $view.='削除する（my morning routineから削除します）';
+        $view.='</a>';
+        $view.='　ダウンロード済みのモーニングルーティンです';
+        $view.='</p>';
+      } else {
+        $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
+        $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
+        $view.='ダウンロードする';
         $view.='</a>';
         $view.='</p>';
         echo $view;
       }
-      echo '<p  style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>';
-    ?>
+    } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
+      $view="";
+      $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
+      $view.='<a href="edit.php?MR_ID='.$MR_ID.'".php>';
+      $view.='編集する';
+      $view.='</a>';
+      $view.='</p>';
+      echo $view;
+    }
+    echo '<p  style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>';
+  ?>
 </body>
 </html>

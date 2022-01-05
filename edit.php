@@ -120,9 +120,10 @@ function confirm_test() {
   <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment"><?=$package['DESCRIPTION']?></textarea></div>
   <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube" value="<?=$package['YOUTUBE']?>"/></div>
   <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED" <?php if ($package["SHARED"]==1) {echo "checked";} ?>></div>
-  <div id="register-bg"><input type="submit" value="登録" id="register"/></div>
-  <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
+  <div class="register-bg"><input type="submit" value="登録" class="register"/></div>
 </form>
+<a href="delete.php?MR_ID=<?=$_GET["MR_ID"]?>"><div class="register-bg"><button class="delete">削除する</button></div></a>
+<p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
 
 <script>
   $("#plus").on("click", function() {
