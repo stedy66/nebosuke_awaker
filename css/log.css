@@ -23,6 +23,9 @@ h2{
   text-align: center;
 }
 /* 評価ボタンcss */
+input[type=radio]+label:hover {
+  cursor: pointer;
+}
 input[type=radio]+label:before{
   content: "";
   display: inline-block;
@@ -97,7 +100,7 @@ table td {
 }
 .button {
   display: inline-block;
-  border-radius : 7%;          /* 角丸       */
+  border-radius : 10px;          /* 角丸       */
   font-size     : 18pt;        /* 文字サイズ */
   text-align    : center;      /* 文字位置   */
   cursor        : pointer;     /* カーソル   */

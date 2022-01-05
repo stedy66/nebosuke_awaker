@@ -35,7 +35,7 @@ $plan_time = trim($plan_time,",");
 //var_dump($end_time);
 $end_time = trim($end_time,",");
 //$step = trim($step,",");
-$key = array_key_last($end_time);
+//$key = array_key_last($end_time);
 //echo $end_time[$key];
 //echo end($end_time);
 //var_dump($end_time);
