@@ -25,8 +25,14 @@ $user = $stmt->fetch();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/top2style.css">
 </head>
 <body>
+   
+  <header>
+  <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
+  <a href="top2.php">ホーム
+  </header>
   <?php
     if (isset($_SESSION["download"]) && $_SESSION["download"]==1) {
       echo "<p>ダウンロードしました。</p>";
@@ -37,9 +43,9 @@ $user = $stmt->fetch();
       $_SESSION["delete"]=0;
     }
   ?>
-  <p>こんにちは、<?=$user["USER_NAME"]?></p>
-  <p><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
-  <p>my morning routine　<a href="mymrp.php">すべて見る</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"]?></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;">my morning routine　<a href="mymrp.php">すべて見る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -58,7 +64,7 @@ $user = $stmt->fetch();
     }
   }
   ?>
-  <p>みんなのmorning routine　<a href="sharedmrp.php">すべて見る</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px;">みんなのmorning routine　<a href="sharedmrp.php">すべて見る</a></p>
   <?php
   //みんなのMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
@@ -71,7 +77,7 @@ $user = $stmt->fetch();
       if ($i>=3) {
         break;
       } 
-      echo '<p><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
     }
   }
