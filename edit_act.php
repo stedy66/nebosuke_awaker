@@ -5,7 +5,14 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-$stmt = $pdo->prepare("INSERT INTO table1_1(USER_ID, ROUTINE_NAME, IMG_URL, DOWNLOAD_NUM, DESCRIPTION, YOUTUBE, SHARED, CREATE_DATE)VALUES(:USER_ID, :ROUTINE_NAME, :IMG_URL, 0, :DESCRIPTION, :YOUTUBE, :SHARED, sysdate())");
+$stmt = $pdo->prepare("UPDATE table1_1 SET USER_ID=:USER_ID, ROUTINE_NAME=:ROUTINE_NAME, IMG_URL=:IMG_URL, DOWNLOAD_NUM, DESCRIPTION=:DESCRIPTION, YOUTUBE=:YOUTUBE, SHARED=:SHARED, CREATE_DATE=sysdate())
+
+VALUES(, , , 0, , , , )");
+
+
+
+
+
 $stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':ROUTINE_NAME', $_POST["ROUTINE_NAME"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':IMG_URL', "", PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)

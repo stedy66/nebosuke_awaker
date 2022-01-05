@@ -14,8 +14,9 @@ h2{
   margin: 30px;
 }
 .a{
-  padding-left: 100px;
+  margin: 0px auto 10px;
   font-size: 15px;
+  width: 600px;
   color: #555555;
 }
 .comment{

@@ -8,7 +8,7 @@ include('funcs.php');
 $pdo = db_conn();
 
 //LOGINチェック → funcs.phpへ関数化しましょう！
-//sschk();
+sschk();
 
 $end_time = '';
 $step = '';
@@ -86,7 +86,7 @@ $step = trim($step,",");
     <?php
         //2．データ登録SQL作成
         //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-        $stmt = $pdo->prepare("SELECT* FROM table3_test");
+        $stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
         $status = $stmt->execute();
 
         //３．データ表示
@@ -105,6 +105,7 @@ $step = trim($step,",");
     ?>
     </table>
 </div>
+<p class="a"><a href="top2.php".php>トップに戻る</a></p>
 </section>
 <!-- Main[End] -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
