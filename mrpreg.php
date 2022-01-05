@@ -28,6 +28,14 @@ if($status==false){
 
 <body>
 <header>マイルーティン入力</header>
+
+<script>
+function confirm_test() {
+    var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
+    return select;
+}
+</script>
+
 <form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
   <div id="routine_name_bgi"><input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください" id="routine_name"/></div>
   <table id="table">

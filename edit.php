@@ -27,6 +27,22 @@ if($status==false){
     exit();
   }
 }
+
+//5. ステップを取得
+$stmt3 = $pdo->prepare("SELECT COUNT(*) FROM table1_3 WHERE MR_ID=:MR_ID");
+$stmt3->bindValue(":MR_ID", $_GET["MR_ID"], PDO::PARAM_INT);
+$status = $stmt3->execute();
+if ($status==false) {
+  sql_error($stmt3);
+}
+$count = $stmt3->fetchColumn();
+
+$stmt4 = $pdo->prepare("SELECT * FROM table1_3 WHERE MR_ID=:MR_ID");
+$stmt4->bindValue(":MR_ID", $_GET["MR_ID"], PDO::PARAM_INT);
+$status = $stmt4->execute();
+if ($status==false) {
+  sql_error($stmt4);
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +59,15 @@ if($status==false){
 
 <body>
 <header>マイルーティン編集</header>
-<form action="mrreg_act.php" method="POST" onsubmit="return confirm_test()">
+
+<script>
+function confirm_test() {
+    var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
+    return select;
+}
+</script>
+
+<form action="edit_act.php" method="POST" onsubmit="return confirm_test()">
   <div id="routine_name_bgi"><input type="text" name="ROUTINE_NAME" placeholder="モーニングルーティン名を設定してください" id="routine_name" value="<?=$package['ROUTINE_NAME']?>"/></div>
   <table id="table">
     <tr>
@@ -53,37 +77,49 @@ if($status==false){
     </tr>
     <?php
     $option="";
-    while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){ 
+    while( $r = $stmt->fetch(PDO::FETCH_ASSOC)) { 
       $option.='<option value='.$r["STEP_ID"].'>'.$r["STEP_NAME"].'</option>';
     }
-    for ($i=1; $i<4; $i++) {
+    $i=1;
+    while( $r = $stmt4->fetch(PDO::FETCH_ASSOC)) {
+      $option2="";
+      $stmt = $pdo->prepare("SELECT * FROM table1_2");
+      $status = $stmt->execute();
+      while( $r2 = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        if ($r["STEP_ID"]==$r2["STEP_ID"]) {
+          $option2.='<option value='.$r2["STEP_ID"].' selected>'.$r2["STEP_NAME"].'</option>';
+        } else {
+          $option2.='<option value='.$r2["STEP_ID"].'>'.$r2["STEP_NAME"].'</option>';
+        }
+      }
       $view="";
       $view.="<tr>";
-      if ($i==3) {
+      if ($i==$count) {
         $view.="<td class='action' id='ld'>";
       } else {
         $view.="<td class='action'>";
       }
       $view.="<select name='STEP_ID".$i."'>";
-      $view.="<option value=0 selected>--選択してください--</option>";
-      $view.=$option;
+      $view.="<option value=0>--選択してください--</option>";
+      $view.=$option2;
       $view.="</select>";
       $view.="</td>";
-      $view.="<td class='description'><textarea name='DESCRIPTION".$i."'></textarea></td>";
-      if ($i==3) {
-        $view.="<td class='time' id='rd'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+      $view.="<td class='description'><textarea name='DESCRIPTION".$i."'>".$r["DESCRIPTION"]."</textarea></td>";
+      if ($i==$count) {
+        $view.="<td class='time' id='rd'><input type='number' step=1 min=0 value=".$r["PERIOD"]." name='PERIOD".$i."' style='width: 50px;'/>min</td>";
       } else {
-        $view.="<td class='time'><input type='number' step=1 min=0 value=0 name='PERIOD".$i."' style='width: 50px;'/>min</td>";
+        $view.="<td class='time'><input type='number' step=1 min=0 value=".$r["PERIOD"]." name='PERIOD".$i."' style='width: 50px;'/>min</td>";
       }
       $view.="</tr>";
       echo $view;
+      $i++;
     }
     ?>
   </table>
   <div id="plus-bg"><p id="plus">+</p><p style="margin-left: 20px;">Actionを追加する</p></div>
-  <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment" value="<?=$package['COMMENT']?>"></textarea></div>
+  <div id="comment-bg"><textarea name="DESCRIPTION" placeholder="コメント（任意）" id="comment"><?=$package['DESCRIPTION']?></textarea></div>
   <div id="youtube-bg"><input type="url" name="YOUTUBE" placeholder="YouTube動画のurlを入れてください（任意）" id="youtube" value="<?=$package['YOUTUBE']?>"/></div>
-  <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED" value="<?=$package['SHARED']?>"></div>
+  <div id="share-bg"><p>みんなにシェア</p><input type="checkbox" name="SHARED" <?php if ($package["SHARED"]==1) {echo "checked";} ?>></div>
   <div id="register-bg"><input type="submit" value="登録" id="register"/></div>
   <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>
 </form>
