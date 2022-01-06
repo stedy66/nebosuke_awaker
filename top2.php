@@ -26,13 +26,15 @@ $user = $stmt->fetch();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="css/top2style.css">
+  <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/slick-theme.css">
 </head>
 <body>
    
   <header>
     <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
     <div class="home" >ホーム</div>   
-    <div class="nav_item"><a href="#">ログアウト</a></div>
+    <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
     <div class="hamburger-menu">
         <input type="checkbox" id="menu-btn-check">
         <label for="menu-btn-check" class="menu-btn"><span></span></label>
@@ -56,7 +58,6 @@ $user = $stmt->fetch();
                 <li>
                     <a href="logshare.php">みんなの記録</a>
                 </li>
-
             </ul>
         </div>
         <!--ここまでメニュー-->
@@ -73,8 +74,8 @@ $user = $stmt->fetch();
     }
   ?>
   <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?=$user["USER_NAME"].'さん'?></p>
-  <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p>
-  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a href="mymrp.php">すべて見る</a></p>
+  <!-- <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p> -->
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a style="text-decoration: none;" href="mymrp.php">すべて表示</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
@@ -84,29 +85,34 @@ $user = $stmt->fetch();
     sql_error($stmt);
   } else {
     $i=0;
+    echo '<div class="multiple-items">';
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-      if ($i>=3) {
+      if ($i>=10) {
         break;
       } 
-      $view='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view.='';
-      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      $view='<a  style="text-decoration: none;" href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<div>';
+      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg)">';
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      // $view.='</div>';
+      // $view.='</a>';
+      // echo $view;
+      // $view2='<div class="mrp_name">';
+      // $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='</div>';
+      $view.='<p class="mrp_name">'.$r["ROUTINE_NAME"].'<p>';
       $view.='</div>';
       $view.='</a>';
       echo $view;
-      $view2='<div class="mrp_name">';
-      $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view2.='<p>'.$r["ROUTINE_NAME"].'<p>';
-      $view2.='</div>';
-      echo $view2;
 
       // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
+
     }
+    echo '</div>';
   }
   ?>
-  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなのモーニングルーティン　<a href="sharedmrp.php">すべて見る</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなのモーニングルーティン　<a style="text-decoration: none;" href="sharedmrp.php">すべて表示</a></p>
   <?php
   //みんなのMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
@@ -115,29 +121,32 @@ $user = $stmt->fetch();
     sql_error($stmt);
   } else {
     $i=0;
+    echo '<div class="multiple-items">';
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-      if ($i>=3) {
+      if ($i>=10) {
         break;
       } 
       $view='';
-      $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<a style="text-decoration: none;" href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<div>';
       $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
       $view.='</div>';
+      // $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<p class="mrp_name">'.$r["ROUTINE_NAME"].'</p>';
+      $view.='</div>';
       $view.='</a>';
       echo $view;
-      
-      $view2='';
-      $view2='<div class="mrp_name">';
-      $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view2.='<p>'.$r["ROUTINE_NAME"].'</p>';
-      $view2.='</div>';
-      echo $view2;
 
       // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
     }
+    echo '</div>';
   }
   ?>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
+  
 </html>
