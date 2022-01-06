@@ -112,3 +112,9 @@ table td {
   color         : #ffc900;     /* 背景色     */
   background    : #fef7e7;     /* 文字色     */
 }
+.a{
+  margin: 0px auto 10px;
+  font-size: 15px;
+  width: 600px;
+  color: #555555;
+}
