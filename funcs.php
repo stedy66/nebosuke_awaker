@@ -5,17 +5,30 @@ function h($str){
 }
 
 //DB接続
+さくらサーバー接続
 function db_conn(){
   try {
-    $db_name = "nebosuke_test";    //データベース名
-    $db_id   = "root";      //アカウント名
-    $db_pw   = "root";      //パスワード：XAMPPはパスワード無しに修正してください。
-    $db_host = "localhost"; //DBホスト
+    $db_name = "nebosuke_awaker";    //データベース名
+    $db_id   = "nebosuke";      //アカウント名
+    $db_pw   = "shuy7424";      //パスワード：XAMPPはパスワード無しに修正してください。
+    $db_host = "mysql57.nebosuke.sakura.ne.jp"; //DBホスト
     return new PDO('mysql:dbname='.$db_name.';charset=utf8;host='.$db_host, $db_id, $db_pw);
   } catch (PDOException $e) {
     exit('DB Connection Error:'.$e->getMessage());
   }
 }
+
+// function db_conn(){
+//   try {
+//     $db_name = "nebosuke_test";    //データベース名
+//     $db_id   = "root";      //アカウント名
+//     $db_pw   = "root";      //パスワード：XAMPPはパスワード無しに修正してください。
+//     $db_host = "localhost"; //DBホスト
+//     return new PDO('mysql:dbname='.$db_name.';charset=utf8;host='.$db_host, $db_id, $db_pw);
+//   } catch (PDOException $e) {
+//     exit('DB Connection Error:'.$e->getMessage());
+//   }
+// }
 
 //SQLエラー
 function sql_error($stmt){
