@@ -92,7 +92,13 @@ $user = $stmt->fetch();
       } 
       $view='<a  style="text-decoration: none;" href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
       $view.='<div>';
-      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg)">';
+      if ($i%3==0) {
+        $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg)">';
+      } else if ($i%3==1) {
+        $view.='<div class="mrp" style="background-image: url(img/pexels-martin-péchy-922100.jpg)">';
+      } else {
+        $view.='<div class="mrp" style="background-image: url(img/pexels-pavel-danilyuk-6443483.jpg)">';
+      }
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
       // $view.='</div>';
       // $view.='</a>';
@@ -129,7 +135,13 @@ $user = $stmt->fetch();
       $view='';
       $view.='<a style="text-decoration: none;" href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
       $view.='<div>';
-      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      if ($i%3==0) {
+        $view.='<div class="mrp" style="background-image: url(img/pexels-engin-akyurt-2299028.jpg)">';
+      } else if ($i%3==1) {
+        $view.='<div class="mrp" style="background-image: url(img/pexels-tamba-budiarsana-979247.jpg)">';
+      } else {
+        $view.='<div class="mrp" style="background-image: url(img/pexels-thought-catalog-904616.jpg)">';
+      }
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
       $view.='</div>';
       // $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
