@@ -26,6 +26,8 @@ $user = $stmt->fetch();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="css/top2style.css">
+  <link rel="stylesheet" href="css/slick.css">
+  <link rel="stylesheet" href="css/slick-theme.css">
 </head>
 <body>
    
@@ -84,26 +86,31 @@ $user = $stmt->fetch();
     sql_error($stmt);
   } else {
     $i=0;
+    echo '<div class="multiple-items">';
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-      if ($i>=3) {
+      if ($i>=10) {
         break;
       } 
-      $view='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view.='';
-      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
+      $view='<a  style="text-decoration: none;" href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='<div>';
+      $view.='<div class="mrp" style="background-image: url(upload/default_bg.jpg)">';
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      // $view.='</div>';
+      // $view.='</a>';
+      // echo $view;
+      // $view2='<div class="mrp_name">';
+      // $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view.='</div>';
+      $view.='<p class="mrp_name">'.$r["ROUTINE_NAME"].'<p>';
       $view.='</div>';
       $view.='</a>';
       echo $view;
-      $view2='<div class="mrp_name">';
-      $view2.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view2.='<p>'.$r["ROUTINE_NAME"].'<p>';
-      $view2.='</div>';
-      echo $view2;
 
       // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
       $i+=1;
+
     }
+    echo '</div>';
   }
   ?>
   <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなのモーニングルーティン　<a href="sharedmrp.php">すべて見る</a></p>
@@ -139,5 +146,9 @@ $user = $stmt->fetch();
     }
   }
   ?>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/slick.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
+  
 </html>

@@ -110,8 +110,8 @@ body {
   /* margin: 20px auto 30px auto; */
   margin: 10px auto 10px;
   /* margin-left: 200px; */
-  width: 220px;
-  height: 150px;
+  width: 180px;
+  height: 120px;
   background-size: contain;
   background-repeat: no-repeat;
   display: -webkit-box;
@@ -137,7 +137,6 @@ body {
   /* margin-left: 200px; */
   width: 200px;
   height:   30px;
-
   display: flex;
       -ms-flex-align: center;
           align-items: center;
@@ -155,9 +154,9 @@ body {
 .logo {
   position: absolute;
   /* margin-top: 10px; */
-  margin-left: -220px;
+  margin-left: -250px;
   border-radius: 50%;
-  width: 120px;
+  width: 100px;
 }
 
 /*# sourceMappingURL=mrplist.css.map */
