@@ -81,7 +81,9 @@ if ($status == false) {
       while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $option .= '<option value=' . $r["STEP_ID"] . '>' . $r["STEP_NAME"] . '</option>';
       }
+
       $i = 1;
+      
       while ($r = $stmt4->fetch(PDO::FETCH_ASSOC)) {
         $option2 = "";
         $stmt = $pdo->prepare("SELECT * FROM table1_2");

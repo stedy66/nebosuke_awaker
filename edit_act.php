@@ -32,11 +32,35 @@ if($status==false) {
 }
 
 
-
+//urlの後ろに添えたMR_IDを代入している
 $MR_ID= $_GET["MR_ID"];
 
+// //ルーティンの工程数SEQUENCEの数を数えて$countColumnに代入している
+// $stmt3 = $pdo->prepare("SELECT COUNT(*) FROM  table1_3 WHERE MR_ID=:MR_ID");
+
+// $stmt3->bindValue("MR_ID", $MR_ID, PDO::PARAM_INT);
+
+// $status3 = $stmt3->execute();
+// if ($status3 == false) {
+//   sql_error($stmt);
+// }
+
+// $countColumn = $stmt3->fetchColumn();
 
 $i=1;
+$j = 1;
+
+//データの更新のためルーティーンのデータが一つでもあれば該当レコードを削除
+while (isset($_POST["STEP_ID" . $j]) && $_POST["STEP_ID" . $j] != 0) {
+  $stmt4 = $pdo->prepare("DELETE FROM table1_3 WHERE MR_ID=:MR_ID");
+  $stmt4->bindValue(":MR_ID", $MR_ID, PDO::PARAM_INT);
+  $status4 = $stmt4->execute();
+  if ($status4 == false) {
+    sql_error($stmt4);
+  }
+  $j++;
+}
+
 while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
   $stmt2 = $pdo->prepare("INSERT INTO table1_3(MR_ID, SEQUENCE, STEP_ID, DESCRIPTION, PERIOD)VALUES(:MR_ID, :SEQUENCE, :STEP_ID, :DESCRIPTION, :PERIOD)");
   $stmt2->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
