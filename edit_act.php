@@ -5,10 +5,7 @@ include("funcs.php");
 sschk();
 $pdo = db_conn();
 
-$stmt = $pdo->prepare("UPDATE table1_1 SET USER_ID=:USER_ID, ROUTINE_NAME=:ROUTINE_NAME, IMG_URL=:IMG_URL, DOWNLOAD_NUM, DESCRIPTION=:DESCRIPTION, YOUTUBE=:YOUTUBE, SHARED=:SHARED, CREATE_DATE=sysdate())
-
-VALUES(, , , 0, , , , )");
-
+$stmt = $pdo->prepare("UPDATE table1_1 SET USER_ID=:USER_ID, ROUTINE_NAME=:ROUTINE_NAME, IMG_URL=:IMG_URL, DOWNLOAD_NUM=0, DESCRIPTION=:DESCRIPTION, YOUTUBE=:YOUTUBE, SHARED=:SHARED, CREATE_DATE=sysdate() WHERE MR_ID=:MR_ID");
 
 
 
@@ -18,6 +15,8 @@ $stmt->bindValue(':ROUTINE_NAME', $_POST["ROUTINE_NAME"], PDO::PARAM_STR);      
 $stmt->bindValue(':IMG_URL', "", PDO::PARAM_STR);  //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':DESCRIPTION', $_POST["DESCRIPTION"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
 $stmt->bindValue(':YOUTUBE', $_POST["YOUTUBE"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+
+$stmt->bindValue(':MR_ID', $_GET["MR_ID"], PDO::PARAM_INT);
 //SHAREDにチェックが入っていたら1,入っていなかったら0
 if (isset($_POST["SHARED"])) {
   $SHARED=1;
@@ -26,10 +25,16 @@ if (isset($_POST["SHARED"])) {
 }
 $stmt->bindValue(':SHARED', $SHARED, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
 $status = $stmt->execute(); //実行
+
+
 if($status==false) {
   sql_error($stmt);
 }
-$MR_ID=($pdo->lastInsertId());
+
+
+
+$MR_ID= $_GET["MR_ID"];
+
 
 $i=1;
 while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
@@ -46,13 +51,13 @@ while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
   $i++;
 }
 
-$stmt = $pdo->prepare("INSERT INTO table2(USER_ID, MR_ID)VALUES(:USER_ID, :MR_ID)");
-$stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
-$stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
-$status = $stmt->execute(); //実行
-if($status==false) {
-  sql_error($stmt);
-}
+// $stmt = $pdo->prepare("INSERT INTO table2(USER_ID, MR_ID)VALUES(:USER_ID, :MR_ID)");
+// $stmt->bindValue(':USER_ID', $_SESSION["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+// $stmt->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)
+// $status = $stmt->execute(); //実行
+// if($status==false) {
+//   sql_error($stmt);
+// }
 
 //mysql_insert_id()は直近でinsertした行のidを取得するphpの関数
 redirect("mrdetail.php?MR_ID=".$MR_ID);

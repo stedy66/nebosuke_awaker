@@ -78,3 +78,12 @@ function fileUpload($fname,$path){
          return 2; //失敗時：ファイル取得エラー
      }
 }
+
+//デバック用
+function dd($arr) {
+
+  echo "<pre>";
+  var_dump($arr);
+  echo "</pre>";
+  exit;
+}

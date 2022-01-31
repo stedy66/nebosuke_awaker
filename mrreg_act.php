@@ -24,7 +24,7 @@ if($status==false) {
 }
 $MR_ID=($pdo->lastInsertId());
 
-$i=1;
+
 while (isset($_POST["STEP_ID".$i]) && $_POST["STEP_ID".$i]!=0) {
   $stmt2 = $pdo->prepare("INSERT INTO table1_3(MR_ID, SEQUENCE, STEP_ID, DESCRIPTION, PERIOD)VALUES(:MR_ID, :SEQUENCE, :STEP_ID, :DESCRIPTION, :PERIOD)");
   $stmt2->bindValue(':MR_ID', $MR_ID, PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)

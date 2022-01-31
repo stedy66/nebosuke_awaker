@@ -3,9 +3,10 @@ session_start();
 //GET送信されたMR_IDを取得
 $MR_ID=$_GET["MR_ID"];
 include("funcs.php");
+sschk();
 $pdo = db_conn();
 
-//２．ルーティンパッケージ抽出SQL作成
+//1．ルーティンパッケージ抽出SQL作成
 $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE MR_ID=:MR_ID");
 $stmt->bindValue(":MR_ID", $MR_ID, PDO::PARAM_INT);
 $status = $stmt->execute();
@@ -14,8 +15,9 @@ $status = $stmt->execute();
 if($status==false) {
     sql_error($stmt);
 }else{
-    $package = $stmt->fetch();
+    $package = $stmt->fetch(pdo::FETCH_ASSOC);
 }
+
 
 if ($package["IMG_URL"]=="") {
   $bg_url="upload/default_bg.jpg";
@@ -90,6 +92,7 @@ else {
         sql_error($stmt);
       }
       $count = $stmt->fetchColumn();
+
       $view="";
       if ($count>0) {
         $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
@@ -98,6 +101,7 @@ else {
         $view.='</a>';
         $view.='　ダウンロード済みのモーニングルーティンです';
         $view.='</p>';
+        echo $view;
       } else {
         $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
         $view.='<a href="download.php?MR_ID='.$MR_ID.'">';
@@ -108,6 +112,10 @@ else {
       }
     } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
       $view="";
+      $view .= '<p style="margin: 20px auto 30px auto; width: 90%;">';
+      $view .= '<a href="delete_from_mmr.php?MR_ID=' . $MR_ID . '">';
+      $view .= '削除する（my morning routineから削除します）';
+      $view .= '</a>';
       $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
       $view.='<a href="edit.php?MR_ID='.$MR_ID.'".php>';
       $view.='編集する';
