@@ -83,7 +83,7 @@ if ($status == false) {
       }
 
       $i = 1;
-      
+
       while ($r = $stmt4->fetch(PDO::FETCH_ASSOC)) {
         $option2 = "";
         $stmt = $pdo->prepare("SELECT * FROM table1_2");
@@ -138,24 +138,27 @@ if ($status == false) {
   <p style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php" .php>トップに戻る</a></p>
 
   <script>
+    i = <?php echo $i ?>;
     $("#plus").on("click", function() {
       $('#ld').removeAttr('id');
       $('#rd').removeAttr('id');
       <?php
-      $view = "";
-      $view .= "<tr>";
+      $view = "<tr>";
       $view .= "<td class='action' id='ld'>";
-      $view .= "<select name='STEP_ID" . $i . "'>";
-      $view .= "<option value=0 selected>--選択してください--</option>";
-      $view .= $option;
-      $view .= "</select>";
-      $view .= "</td>";
-      $view .= "<td class='description'><textarea name='DESCRIPTION" . $i . "'></textarea></td>";
-      $view .= "<td class='time' id='rd'><input type='number' step=1 min=0 value=0 name='PERIOD" . $i . "' style='width: 50px;'/>min</td>";
-      $view .= "</tr>";
-      $i++;
+      $view .= "<select name='STEP_ID";
+      $view2 = "'>";
+      $view2 .= "<option value=0 selected>--選択してください--</option>";
+      $view2 .= $option;
+      $view2 .= "</select>";
+      $view2 .= "</td>";
+      $view2 .= "<td class='description'><textarea name='DESCRIPTION";
+      $view3 = "'></textarea></td>";
+      $view3 .= "<td class='time' id='rd'><input type='number' step=1 min=0 value=0 name='PERIOD";
+      $view4 = "' style='width: 50px;'/>min</td>";
+      $view4 .= "</tr>";
       ?>
-      $("#table").append("<?= $view ?>");
+      $("#table").append("<?= $view ?>" + i + "<?= $view2 ?>" + i + "<?= $view3 ?>" + i + "<?= $view4 ?>");
+      i++;
     });
   </script>
 </body>
