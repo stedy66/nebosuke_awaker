@@ -71,10 +71,12 @@ session_start();
     <h1 class="footer_colour"></h1>
   </footer>
   <?php
-  if($_SESSION["errorLog"] == 1){
+  if(!isset($_SESSION["errorLog"]) || $_SESSION["errorLog"] == 0){
+    
+  }else if($_SESSION["errorLog"] == 1) {
     $_SESSION["errorLog"] = 0;
     $errorLog = "";
-    $errorLog .="<script>alert('ログインしてください')</script>";
+    $errorLog .= "<script>alert('ログインしてください')</script>";
     echo $errorLog;
   }
   

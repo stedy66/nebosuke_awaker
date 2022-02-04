@@ -58,12 +58,14 @@ $user = $stmt->fetch();
           <li>
             <a href="logshare.php">みんなの記録</a>
           </li>
+          <li>
+            <a href="top2.php">TOP</a>
+          </li>
         </ul>
       </div>
       <!--ここまでメニュー-->
     </div>
   </header>
-  <p style="margin: 20px auto 30px auto; width: 600px;"><a href="top2.php" .php>トップに戻る</a></p>
   <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
