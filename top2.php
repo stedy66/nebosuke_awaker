@@ -42,7 +42,7 @@ $user = $stmt->fetch();
         <div class="menu-content">
             <ul>
                 <li>
-                    <a href="#">ログアウト</a>
+                    <a href="logout.php">ログアウト</a>
                 <li>
                     <a href="mrpreg.php">モーニングルーティン新規登録</a>
                 </li>

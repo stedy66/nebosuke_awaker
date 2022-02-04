@@ -46,7 +46,11 @@ function redirect($file_name){
 //SessionCheck
 function sschk(){
   if(!isset($_SESSION["chk_ssid"]) || $_SESSION["chk_ssid"]!=session_id()){
-    exit("Login Error");
+    //ログインしていない状態でアクセスされたらログイン画面に遷移させる
+    //ログイン先でアラートが出るようにセッションに変数を代入
+    //リダイレクト先で0を代入する
+    $_SESSION["errorLog"] = 1;
+    header("Location:login.php");
   }else{
     session_regenerate_id(true);
     $_SESSION["chk_ssid"] = session_id();
