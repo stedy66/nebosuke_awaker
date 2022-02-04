@@ -57,7 +57,7 @@ header {
 }
 
 .menu-content {
-    width: 100%;
+    width: 30%;
     height: 100%;
     position: fixed;
     top: 0;
@@ -94,7 +94,7 @@ header {
     top: 16px;
 }
 .menu-content {
-    width: 100%;
+    width: 30%;
     height: 100%;
     position: fixed;
     top: 0;
@@ -104,5 +104,5 @@ header {
     transition: all 0.5s;/*アニメーション設定*/
 }
 #menu-btn-check:checked ~ .menu-content {
-    left: 0;/*メニューを画面内へ*/
+    left: 70%;/*メニューを画面内へ*/
 }
