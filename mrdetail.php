@@ -112,10 +112,13 @@ else {
       }
     } else if (isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"]==session_id() && $_SESSION["USER_ID"]==$package["USER_ID"]) {
       $view="";
+      if(isset($_SESSION["chk_ssid"]) && $_SESSION["chk_ssid"] == session_id() && $_SESSION["USER_ID"] != $package["USER_ID"]){
       $view .= '<p style="margin: 20px auto 30px auto; width: 90%;">';
       $view .= '<a href="delete_from_mmr.php?MR_ID=' . $MR_ID . '">';
       $view .= '削除する（my morning routineから削除します）';
       $view .= '</a>';
+      $view .= '</p>';
+      }
       $view.='<p style="margin: 20px auto 30px auto; width: 90%;">';
       $view.='<a href="edit.php?MR_ID='.$MR_ID.'".php>';
       $view.='編集する';
