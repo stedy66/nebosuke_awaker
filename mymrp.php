@@ -67,6 +67,12 @@ $user = $stmt->fetch();
     </div>
   </header>
   <?php
+  if (!isset($_SESSION['icon'])) {
+  } else {
+    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
+  }
+  ?>
+  <?php
   //My MRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table2 LEFT JOIN table1_1 ON table2.MR_ID=table1_1.MR_ID WHERE table2.USER_ID=:USER_ID");
   $stmt->bindValue(":USER_ID", $_SESSION["USER_ID"], PDO::PARAM_STR);

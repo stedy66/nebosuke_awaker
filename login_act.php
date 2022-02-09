@@ -43,6 +43,7 @@ else {
     //Login成功時
     $_SESSION["chk_ssid"]  = session_id();
     $_SESSION["USER_ID"]   = $val['USER_ID'];
+    $_SESSION['icon'] = $val['icon'];
     //表示用の変数をリセット（たぶんやらなくても大丈夫）
     $_SESSION["duplicate"] = 0;
     $_SESSION["mismatch"] = 0;

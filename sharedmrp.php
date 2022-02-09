@@ -19,6 +19,7 @@ $pdo = db_conn();
 </head>
 
 <body>
+
   <header>
     <div class="home">みんなのmorning routine一覧</div>
     <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
@@ -53,6 +54,12 @@ $pdo = db_conn();
       <!--ここまでメニュー-->
     </div>
   </header>
+  <?php
+  if (!isset($_SESSION['icon'])) {
+  } else {
+    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
+  }
+  ?>
   <?php
   //シェアされたMRの一覧取得
   $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");

@@ -1,6 +1,12 @@
 <?php
+include("funcs.php");
 session_start();
+
 //POST値
+$icon = fileUpload("upfile", "upload/");
+if ($icon == 1 || $icon == 2) {
+  exit("file error");
+}
 $_SESSION["USER_ID"]=$_POST["USER_ID"];
 $_SESSION["USER_NAME"]=$_POST["USER_NAME"];
 $_SESSION["EMAIL"]=$_POST["EMAIL"];
@@ -13,7 +19,6 @@ $_SESSION["TWITTER"]=$_POST["TWITTER"];
 $_SESSION["success"]=0;
 
 //1. DB接続します
-include("funcs.php");
 $pdo = db_conn();
 
 //2. 登録済みのlidとの重複チェック
@@ -42,9 +47,10 @@ if ($_SESSION["success"]==1) {
 }
 else {
   //sqlとloginページへのリダイレクト
-  $stmt = $pdo->prepare("INSERT INTO table4(USER_ID, USER_NAME, EMAIL, PASSWORD, GENDER, BIRTHDAY, ADDRESS, TWITTER, CREATE_DATE)VALUES(:USER_ID, :USER_NAME, :EMAIL, :PASSWORD,:GENDER, :BIRTHDAY, :ADDRESS, :TWITTER, sysdate())");
+  $stmt = $pdo->prepare("INSERT INTO table4(USER_ID, USER_NAME, icon, EMAIL, PASSWORD, GENDER, BIRTHDAY, ADDRESS, TWITTER, CREATE_DATE)VALUES(:USER_ID, :USER_NAME, :icon, :EMAIL, :PASSWORD,:GENDER, :BIRTHDAY, :ADDRESS, :TWITTER, sysdate())");
   $stmt->bindValue(':USER_ID', $_POST["USER_ID"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':USER_NAME', $_POST["USER_NAME"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
+  $stmt->bindValue(':icon', $icon, PDO::PARAM_STR);
   $stmt->bindValue(':EMAIL', $_POST["EMAIL"], PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':PASSWORD', password_hash($_POST["PASSWORD"], PASSWORD_DEFAULT), PDO::PARAM_STR);      //Integer（数値の場合 PDO::PARAM_INT)
   $stmt->bindValue(':GENDER', $_POST["GENDER"], PDO::PARAM_INT);      //Integer（数値の場合 PDO::PARAM_INT)

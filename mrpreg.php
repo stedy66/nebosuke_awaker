@@ -29,6 +29,7 @@ if ($status == false) {
 </head>
 
 <body>
+
   <header>
     <div class="home">マイルーティーン入力</div>
     <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
@@ -63,7 +64,12 @@ if ($status == false) {
       <!--ここまでメニュー-->
     </div>
   </header>
-
+  <?php
+  if (!isset($_SESSION['icon'])) {
+  } else {
+    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
+  }
+  ?>
   <script>
     function confirm_test() {
       var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
