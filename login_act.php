@@ -35,11 +35,15 @@ if ($count==0) {
   redirect("login.php");
 }
 else {
+  //password_verify第一引数にはユーザー入力
+  //第二引数にはpassword_hushでhush化したパスワード値（データベース参照）
+  //bool値を返す
   $pw = password_verify($_POST["PASSWORD"], $val["PASSWORD"]);
   if($pw){
     //Login成功時
     $_SESSION["chk_ssid"]  = session_id();
     $_SESSION["USER_ID"]   = $val['USER_ID'];
+    $_SESSION['icon'] = $val['icon'];
     //表示用の変数をリセット（たぶんやらなくても大丈夫）
     $_SESSION["duplicate"] = 0;
     $_SESSION["mismatch"] = 0;
