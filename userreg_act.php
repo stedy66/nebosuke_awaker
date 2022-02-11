@@ -4,8 +4,10 @@ session_start();
 
 //POST値
 $icon = fileUpload("upfile", "upload/");
-if ($icon == 1 || $icon == 2) {
+if ($icon == 1 ) {
   exit("file error");
+}else if( $icon == 2) {
+  $icon = 'NULL';
 }
 $_SESSION["USER_ID"]=$_POST["USER_ID"];
 $_SESSION["USER_NAME"]=$_POST["USER_NAME"];
