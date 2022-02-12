@@ -19,6 +19,7 @@ session_start();
     }
   </style>
   <script src="js/func.js"></script>
+  <script src="js/jquery-3.6.0.min.js"></script>
   <title>会員登録</title>
 </head>
 
@@ -49,7 +50,11 @@ session_start();
         <tr>
           <td>　ID<sup>*</sup>:</td>
           <td>
-            <input type="text" name="USER_ID" placeholder="4文字以上の英数字を入力してください" required value="<?= $_SESSION["USER_ID"] ?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい" class="Column" />
+            <input type="text" name="USER_ID" placeholder="4文字以上の英数字を入力してください" required value="<?php if (isset($_SESSION["USER_ID"])) {
+                                                                                                  echo $_SESSION["USER_ID"];
+                                                                                                } else {
+                                                                                                  echo '';
+                                                                                                } ?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい" class="Column" />
             <?php
             if (!isset($_SESSION["mismatch"])) {
             } else if ($_SESSION["duplicate"] == 1) {
@@ -62,19 +67,27 @@ session_start();
         <tr>
           <td>　ユーザー名<sup>*</sup>:</td>
           <td>
-            <input type="text" name="USER_NAME" placeholder="好きな名前を設定してください" required value="<?= $_SESSION["USER_NAME"] ?>" class="Column" />
+            <input type="text" name="USER_NAME" placeholder="好きな名前を設定してください" required value="<?php if (isset($_SESSION["USER_NAME"])) {
+                                                                                                echo $_SESSION["USER_NAME"];
+                                                                                              } else {
+                                                                                                echo '';
+                                                                                              } ?>" class="Column" />
           </td>
         </tr>
         <tr>
           <td>　Password<sup>*</sup>:</td>
           <td>
-            <input type="password" id="input_pass" name="PASSWORD" placeholder="8文字以上の英数字を入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい" class="Column" /><button id="btn_passview">表示</button>
+            <input type="password" id="input_pass1" name="PASSWORD" placeholder="8文字以上の英数字を入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい" class="Column" />
           </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><label>パスワードを表示する<input type="checkbox" id="password-check1" /></label></td>
         </tr>
         <tr>
           <td>　Password(再入力)<sup>*</sup>:　</td>
           <td>
-            <input type="password" name="PASSWORD2" id="input_pass2" placeholder="Passwordを再入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい" class="Column"><button id="btn_passview2">表示</button>
+            <input type="password" name="PASSWORD2" id="input_pass2" placeholder="Passwordを再入力してください" required pattern="^([a-zA-Z0-9]{8,})$" title="8文字以上の英数字のみで入力して下さい" class="Column">
             <?php
             if (!isset($_SESSION["mismatch"])) {
             } else if ($_SESSION["mismatch"] == 1) {
@@ -85,6 +98,10 @@ session_start();
           </td>
         </tr>
         <tr>
+          <td></td>
+          <td><label>パスワードを表示する<input type="checkbox" id="password-check2" /></label></td>
+        </tr>
+        <tr>
           <td>　アイコン画像:</td>
           <td>
             <input id="upfile" type="file" accept="image/*" capture="camera" name="upfile">
@@ -93,7 +110,11 @@ session_start();
         <tr>
           <td>　e-mail<sup>*</sup>:</td>
           <td>
-            <input type="email" name="EMAIL" placeholder="example@test.ne.jp" class="Column" value="<?= $_SESSION["EMAIL"] ?>" required />
+            <input type="email" name="EMAIL" placeholder="example@test.ne.jp" class="Column" value="<?php if (isset($_SESSION["EMAIL"])) {
+                                                                                                      echo $_SESSION["EMAIL"];
+                                                                                                    } else {
+                                                                                                      echo '';
+                                                                                                    } ?>" required />
           </td>
         </tr>
         <tr>
@@ -121,13 +142,21 @@ session_start();
         <tr>
           <td>　住所:</td>
           <td>
-            <input type="text" name="ADDRESS" class="Column" value="<?= $_SESSION["ADDRESS"] ?>" />
+            <input type="text" name="ADDRESS" class="Column" value="<?php if (isset($_SESSION["ADDRESS"])) {
+                                                                      echo $_SESSION["ADDRESS"];
+                                                                    } else {
+                                                                      echo '';
+                                                                    } ?>" />
           </td>
         </tr>
         <tr>
           <td>　Twitter:</td>
           <td>
-            <input type="text" name="TWITTER" class="Column" value="<?= $_SESSION["TWITTER"] ?>" />
+            <input type="text" name="TWITTER" class="Column" value="<?php if (isset($_SESSION["TWITTER"])) {
+                                                                      echo $_SESSION["TWITTER"];
+                                                                    } else {
+                                                                      echo '';
+                                                                    } ?>" />
           </td>
         </tr>
       </table>
@@ -141,10 +170,31 @@ session_start();
   <footer>
     <h1 class="footer_colour"></h1>
   </footer>
-  <script>
-    //パスワードの表示非表示切り替え
-    switching("input_pass", "btn_passview");
-    switching("input_pass2", "btn_passview2");
+  <script type="text/javascript">
+    $(function() {
+      //チェックボックスの変化時関数
+      $("#password-check1").change(function() {
+        if ($(this).prop("checked")) {
+          //チェックONの場合
+          $("#input_pass1").attr("type", "text");
+        } else {
+          //チェックOFFの場合
+          $("#input_pass1").attr("type", "password");
+        }
+      });
+    });
+    $(function() {
+      //チェックボックスの変化時関数
+      $("#password-check2").change(function() {
+        if ($(this).prop("checked")) {
+          //チェックONの場合
+          $("#input_pass2").attr("type", "text");
+        } else {
+          //チェックOFFの場合
+          $("#input_pass2").attr("type", "password");
+        }
+      });
+    });
   </script>
 </body>
 

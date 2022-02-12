@@ -84,20 +84,20 @@ $user = $stmt->fetch();
           <td>　住所:</td>
           <td>
             <input type="text" name="ADDRESS" class="Column" value="<?php if ($user['ADDRESS'] != '') {
-                                                                      echo $user['ADDRESS'];
-                                                                    } else if ($user['ADDRESS'] == '') {
-                                                                      echo '';
-                                                                    } ?>" />
+                echo $user['ADDRESS'];
+            } else if ($user['ADDRESS'] == '') {
+                echo '';
+            } ?>" />
           </td>
         </tr>
         <tr>
           <td>　Twitter:</td>
           <td>
             <input type="text" name="TWITTER" class="Column" value="<?php if ($user['TWITTER'] != '') {
-                                                                      echo $user['TWITTER'];
-                                                                    } else if ($user['TWITTER'] == '') {
-                                                                      echo '';
-                                                                    } ?>" />
+              echo $user['TWITTER'];
+            } else if ($user['TWITTER'] == '') {
+                echo '';
+            } ?>" />
           </td>
         </tr>
       </table>
