@@ -4,8 +4,8 @@ session_start();
 
 <!DOCTYPE html>
 <html>
-
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <!-- <link rel="stylesheet" href="css/main.css" /> -->
@@ -21,25 +21,27 @@ session_start();
   <script src="js/func.js"></script>
   <script src="js/jquery-3.6.0.min.js"></script>
   <title>会員登録</title>
-</head>
 
+
+</head>
 <body>
-  <header>
+<header>
     <h1 class="header_colour"></h1>
-  </header>
-  <section id="main">
-    <div style="text-align: center">
-      <img src="./img/nbsk_c.png" alt="">
-    </div>
-    <div style="text-align: center">
-      <h1 class="a">新規登録</h1>
-    </div>
-    <script>
-      function confirm_test() {
-        var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
-        return select;
-      }
-    </script>
+</header>
+<section id = "main">
+<div style="text-align: center">
+    <img src="./img/nbsk_c.png" alt="" >
+</div>
+<div style="text-align: center">
+  <h1 class="a">新規登録</h1>
+</div>
+<script>
+function confirm_test() {
+    var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
+    return select;
+}
+</script>
+
 
     <form action="userreg_act.php" method="POST" enctype="multipart/form-data" onsubmit="return confirm_test()">
       <table>
@@ -197,5 +199,4 @@ session_start();
     });
   </script>
 </body>
-
 </html>
