@@ -35,11 +35,45 @@ if ($package["IMG_URL"] == "") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/mrdetail.css">
+  <link rel="stylesheet" href="css/top2style-copy.css">
   <title>Document</title>
 </head>
 
 <body>
-  <header>ルーティン</header>
+  <header>
+    <div class="home">ルーティーン一覧</div>
+    <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
+    <div class="hamburger-menu">
+      <input type="checkbox" id="menu-btn-check">
+      <label for="menu-btn-check" class="menu-btn"><span></span></label>
+      <!--ここからメニュー-->
+      <div class="menu-content">
+        <ul>
+          <li>
+            <a href="logout.php">ログアウト</a>
+          <li>
+            <a href="mrpreg.php">モーニングルーティン新規登録</a>
+          </li>
+          <li>
+            <a href="mymrp.php">マイモーニングルーティン</a>
+          </li>
+          <li>
+            <a href="sharedmrp.php">みんなのモーニングルーティン</a>
+          </li>
+          <li>
+            <a href="log.php">私の記録</a>
+          </li>
+          <li>
+            <a href="logshare.php">みんなの記録</a>
+          </li>
+          <li>
+            <a href="top2.php">TOP</a>
+          </li>
+        </ul>
+      </div>
+      <!--ここまでメニュー-->
+    </div>
+  </header>
   <?php
   if (!isset($_SESSION['icon'])) {
   } else {
@@ -132,7 +166,6 @@ if ($package["IMG_URL"] == "") {
     $view .= '</p>';
     echo $view;
   }
-  echo '<p  style="margin: 20px auto 30px auto; width: 90%;"><a href="top2.php".php>トップに戻る</a></p>';
   ?>
 </body>
 
