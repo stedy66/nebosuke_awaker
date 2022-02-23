@@ -26,6 +26,7 @@ $user = $stmt->fetch();
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/top2style.css">
   <link rel="stylesheet" href="css/slick.css">
   <link rel="stylesheet" href="css/slick-theme.css">
@@ -35,7 +36,7 @@ $user = $stmt->fetch();
 
   <header>
     <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
-    <div class="home">ホーム</div>
+    <div class="home">HOME</div>
     <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
     <div class="hamburger-menu">
       <input type="checkbox" id="menu-btn-check">
@@ -75,14 +76,13 @@ $user = $stmt->fetch();
     $_SESSION["delete"] = 0;
   }
   ?>
-  <?php 
-  if(!isset($_SESSION['icon'])) {
-
-  }else {
+  <?php
+  if (!isset($_SESSION['icon'])) {
+  } else {
     echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
   }
   ?>
-  
+
   <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?= $user["USER_NAME"] . 'さん' ?></p>
   <!-- <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p> -->
   <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a style="text-decoration: none;" href="mymrp.php">すべて表示</a></p>
