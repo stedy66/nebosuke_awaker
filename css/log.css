@@ -9,10 +9,21 @@ header{
   height: 65px;
   padding-top: 25px;
 }
-h2{
-  font-size: 30px;
-  margin: 30px;
+a {
+  text-decoration:none; 
 }
+.days{
+  display: flex;
+  justify-content: space-around;
+  font-size: 30px;
+  margin: 30px auto;
+  text-align: center;
+}
+.d{
+  font-size: 20px;
+  margin: auto;
+}
+
 /* グラフcss */
 .chart{
   width: 700px;
