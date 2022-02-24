@@ -21,7 +21,7 @@ $pdo = db_conn();
 <body>
 
   <header>
-    <div class="home">みんなのmorning routine一覧</div>
+    <div class="home">みんなの記録一覧</div>
     <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
     <div class="hamburger-menu">
       <input type="checkbox" id="menu-btn-check">
