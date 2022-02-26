@@ -59,7 +59,7 @@ $user = $stmt->fetch();
             <a href="log.php">私の記録</a>
           </li>
           <li>
-            <a href="logshare.php">みんなの記録</a>
+            <a href="minlog.php">みんなの記録</a>
           </li>
         </ul>
       </div>
@@ -144,6 +144,44 @@ $user = $stmt->fetch();
       }
       $view = '';
       $view .= '<a style="text-decoration: none;" href="mrdetail.php?MR_ID=' . $r["MR_ID"] . '">';
+      $view .= '<div>';
+      if ($i % 3 == 0) {
+        $view .= '<div class="mrp" style="background-image: url(img/pexels-engin-akyurt-2299028.jpg)">';
+      } else if ($i % 3 == 1) {
+        $view .= '<div class="mrp" style="background-image: url(img/pexels-tamba-budiarsana-979247.jpg)">';
+      } else {
+        $view .= '<div class="mrp" style="background-image: url(img/pexels-thought-catalog-904616.jpg)">';
+      }
+      // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
+      $view .= '</div>';
+      // $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
+      $view .= '<p class="mrp_name">' . $r["ROUTINE_NAME"] . '</p>';
+      $view .= '</div>';
+      $view .= '</a>';
+      echo $view;
+
+      // echo '<p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">'.$r["ROUTINE_NAME"].'</a><p>';
+      $i += 1;
+    }
+    echo '</div>';
+  }
+  ?>
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなの記録　<a style="text-decoration: none;" href="minlog.php">すべて表示</a></p>
+  <?php
+  //みんなのMRの一覧取得
+  $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
+  $status = $stmt->execute();
+  if ($status == false) {
+    sql_error($stmt);
+  } else {
+    $i = 0;
+    echo '<div class="multiple-items">';
+    while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      if ($i >= 10) {
+        break;
+      }
+      $view = '';
+      $view .= '<a style="text-decoration: none;" href="logshere2.php?MR_ID=' . $r["MR_ID"] . ' & USER_ID=' . $r["USER_ID"] . '">';
       $view .= '<div>';
       if ($i % 3 == 0) {
         $view .= '<div class="mrp" style="background-image: url(img/pexels-engin-akyurt-2299028.jpg)">';
