@@ -2,6 +2,8 @@
 //0. SESSION開始！！
 session_start();
 
+// session_start(['cookie_lifetime' => $10]);
+
 include('funcs.php');
 
 //2. DB接続します
@@ -15,20 +17,47 @@ $end_time = '';
 $step = '';
 
 //日付選択関係
-$days = $_POST[days];
+// unset($_SESSION['log_day']);
+$day = '';
+// $day = $_SESSION['log_day'];
+// $day = "2022-01-01";
+// unset($_SESSION['log_day']);
+// echo $_SESSION['log_day'];
+// echo $day;
 
-//2．データ取得SQL作成
+echo $_SESSION['log_pday'];
+echo $_SESSION['log_nday'];
+echo $_SESSION['log_day'];
+// var_dump($_SESSION['log_pday']);
+// var_dump($_SESSION['log_nday']);
+// var_dump($_SESSION['asd']);
+//exit;
+// if(isset($_SESSION["log_pday"])){
+//     $day = $_SESSION['log_pday'];
+// }else if(isset($_SESSION["log_nday"])){
+//     $day = $_SESSION['log_nday'];
+// }
+
+// $day = $_SESSION['log_day'];
+echo $day;
+
+
+
+//表示する日付のデータ取得SQL作成
 //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-if(!isset($days) || $days == 0){
-    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date= (select max(date)from table3_test) ORDER BY step");
+//if(!isset($day) || $day == 0){
+if(!isset($_SESSION['log_day'])){
+    //初閲覧時に最新の日付のデータを取得する
+    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = (select max(date)from table3_test) ORDER BY step");
 }else{
-    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = '$days' ORDER BY step");
+    //前後の日付のデータを取得する
+    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = '$day' ORDER BY step");
 }
-//$stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = '$days' ORDER BY step");
-//$stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date= (select max(date)from table3_test) ORDER BY step");
+//SQLの実行分
 $status = $stmt->execute();
 
-//loop through the returned data
+
+//チャート用のデータを一行ごとに取得
 while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
 
     $plan_time .= '"' . $r["plan"] . '",';
@@ -48,14 +77,18 @@ $end_time = trim($end_time,",");
 //echo end($end_time);
 //var_dump($end_time);
 
-
-//2．日付データ取得SQL作成
+//前後日付を表示するための変数作成用のSQL作成
 //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
 $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
 
 
-?>
 
+unset($_SESSION['log_day']);
+unset($_SESSION['log_pday']);
+unset($_SESSION['log_nday']);
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +99,7 @@ $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
     <link rel="stylesheet" href="css/log.css">
     <link rel="stylesheet" href="css/top2style-copy.css">
     <title>私の記録</title>
+    <script src="js/jquery-2.1.3.min.js"></script>
 </head>
 <body>
 <!-- Main[Start] -->
@@ -106,24 +140,24 @@ $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
 
 <section id = "main">
 
-<form method="post" style = "margin: 20px">
+<!-- <form method="post" style = "margin: 20px">
     <?php
-    //SQLの実行分
-    $status2 = $stmt2->execute();
-    $option="";
-    //loop through the returned data
-    while( $r = $stmt2->fetch(PDO::FETCH_ASSOC)){
-        //$dates .= date('m月d日', strtotime($r["date"]));
-        $option .= '<option value='.$r["date"].'>'.date('m月d日', strtotime($r["date"])).'</option>';
-    }
-        $view .= '<select name="days">';
-        $view .= "<option value=0 selected>--選択してください--</option>";
-        $view .= $option;
-        $view .= '</select><br>';
-        echo $view;
-    ?>
+    // //SQLの実行分
+    // $status2 = $stmt2->execute();
+    // $option="";
+    // //loop through the returned data
+    // while( $r = $stmt2->fetch(PDO::FETCH_ASSOC)){
+    //     //$dates .= date('m月d日', strtotime($r["date"]));
+    //     $option .= '<option value='.$r["date"].'>'.date('m月d日', strtotime($r["date"])).'</option>';
+    // }
+    //     $view .= '<select name="days">';
+    //     $view .= "<option value=0 selected>--選択してください--</option>";
+    //     $view .= $option;
+    //     $view .= '</select><br>';
+    //     echo $view;
+    // ?>
     <input type="submit" name="btn_submit" value="表示" style = "margin: 10px">
-</form>
+</form> -->
 
 <div class = "days">
     <div><p id="pd"><<</p></div>
@@ -267,14 +301,25 @@ var myChart = new Chart(ctx, {
 
 let d = "<?php echo $days ?>"
 console.log(d);
+
+
+
 //前日へ
 $("#pd").on("click", function() {
-    // $date->modify('-1 day');
+    <?php $_SESSION['log_pday'] = '2022-01-01'; ?>
+    alert('<?php echo $_SESSION["log_pday"]; ?>');
+    window.location.reload();
+    <?php //exit; ?>
 });
-//次の日へ
+
+//次日へ
 $("#nd").on("click", function() {
-    // $date->modify('+1 day');
+    <?php $_SESSION['log_nday'] = '2022-01-02'; ?>
+    alert('<?php echo $_SESSION["log_nday"]; ?>');
+    window.location.reload();
+    <?php //exit; ?>
 });
+
 
 </script>
 </body>
