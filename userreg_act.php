@@ -38,6 +38,9 @@ if ($count>0) {
 }
 echo $count;
 //パスワードの一致チェック
+$lpw = $_POST['PASSWORD'];
+$lpw2 = $_POST['PASSWORD2'];
+
 if ($lpw!=$lpw2) {
   $_SESSION["mismatch"]=1;
   $_SESSION["success"]=1;
