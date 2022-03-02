@@ -4,6 +4,7 @@ session_start();
 
 <!DOCTYPE html>
 <html>
+
 <head>
 
   <meta charset="utf-8">
@@ -24,23 +25,24 @@ session_start();
 
 
 </head>
+
 <body>
-<header>
+  <header>
     <h1 class="header_colour"></h1>
-</header>
-<section id = "main">
-<div style="text-align: center">
-    <img src="./img/nbsk_c.png" alt="" >
-</div>
-<div style="text-align: center">
-  <h1 class="a">新規登録</h1>
-</div>
-<script>
-function confirm_test() {
-    var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
-    return select;
-}
-</script>
+  </header>
+  <section id="main">
+    <div style="text-align: center">
+      <img src="./img/nbsk_c.png" alt="">
+    </div>
+    <div style="text-align: center">
+      <h1 class="a">新規登録</h1>
+    </div>
+    <script>
+      function confirm_test() {
+        var select = confirm("本当に登録しますか？\n「OK」で登録\n「キャンセル」で登録中止");
+        return select;
+      }
+    </script>
 
 
     <form action="userreg_act.php" method="POST" enctype="multipart/form-data" onsubmit="return confirm_test()">
@@ -58,7 +60,8 @@ function confirm_test() {
                                                                                                   echo '';
                                                                                                 } ?>" pattern="^([a-zA-Z0-9]{4,})$" title="4文字以上の英数字のみで入力して下さい" class="Column" />
             <?php
-            if (!isset($_SESSION["mismatch"])) {
+            if (!isset($_SESSION["duplicate"])) {
+              echo '';
             } else if ($_SESSION["duplicate"] == 1) {
               echo "そのIDは使用できません、別のIDを指定してください";
               $_SESSION["duplicate"] = 0;
@@ -199,4 +202,5 @@ function confirm_test() {
     });
   </script>
 </body>
+
 </html>
