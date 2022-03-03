@@ -23,7 +23,7 @@ $test2 ="2";
 $days = $_POST[days];
 // echo $days;
 
-//2．グラフデータの取得SQL作成
+//2．グラフ作成用のデータ取得SQL作成
 if(!isset($days)||$days == 0){
     $stmt = $pdo->prepare("SELECT * FROM table2 INNER JOIN table3_test ON table2.MR_ID=table3_test.MR_ID 
                             WHERE table2.USER_ID=:USER_ID and date= (select max(date)from table3_test AS us WHERE table3_test.USER_ID= us.user_id) ORDER BY step");
@@ -35,6 +35,7 @@ if(!isset($days)||$days == 0){
     $stmt->bindValue(":USER_ID", $_SESSION["USER_ID"], PDO::PARAM_STR);
     // echo $test2;
 }
+//SQLの実行分
 $status = $stmt->execute();
 
 if ($status == false) {
@@ -42,20 +43,30 @@ if ($status == false) {
 } else {
     //loop through the returned data
     while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-        $plan_time .= '"' . $r["plan"] . '",';
-        $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
+        // $plan_time .= '"' . $r["plan"] . '",';
+        $plan_time1 .= '"' .date('H:i', strtotime($r["plan"])) .'",';
+        $end_time1  .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
         //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
         $step = $step .'"' .$r["action"] .'",';
         $date = date('m月d日', strtotime($r["date"]));
-
     }
 }
+//折れ線グラフ表示関係
+$plan_time = trim($plan_time1,",");
+$end_time = trim($end_time1,",");
 
-$plan_time = trim($plan_time,",");
-// var_dump($plan_time);
-$end_time = trim($end_time,",");
-//var_dump($end_time);
+//グラフ上限下限の値作成
+//planの最初の時間を取り出し開始時間にする
+$start_time = array_values(preg_split("/[\s,]+/", $plan_time))[0];
+//plan,endそれぞれ最後の時間を取り出す
+$finish_time1 = end(preg_split("/[\s,]+/", $plan_time));
+$finish_time2 = end(preg_split("/[\s,]+/", $end_time));
+//planかendで最後の時間が遅い方を終了時間にする
+if($finish_time1 > $finish_time2){
+    $finish_time = $finish_time1;
+}else{
+    $finish_time = $finish_time2;
+}
 
 ?>
 
@@ -258,10 +269,12 @@ var myChart = new Chart(ctx, {
                 },
                 //X軸の範囲を指定
                 ticks: {
-                    //min: '07:00:00',
-                    min:[<?php echo $plan_time ?>].shift(),
-                    //max: '11:00:00'//'end($end_time)';
-                    max:[<?php echo $end_time ?>].pop()
+                    //開始時間
+                    // min: '07:00:00',
+                    min:<?php echo $start_time ?>,
+                    //終了時間
+                    // max: '11:00:00'
+                    max:<?php echo $finish_time ?>
                 }
             }],
             xAxes: [{
