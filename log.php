@@ -10,52 +10,54 @@ $pdo = db_conn();
 //LOGINチェック → funcs.phpへ関数化しましょう！
 sschk();
 
+//初期化
 $plan_time ='';
 $end_time = '';
 $step = '';
+$days = '';
+//エラーecho用
+$test1 ='1';
+$test2 ="2";
 
 //日付選択関係
 $days = $_POST[days];
+// echo $days;
 
-//2．データ取得SQL作成
-//prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-if(!isset($days) || $days == 0){
-    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date= (select max(date)from table3_test) ORDER BY step");
+//2．グラフデータの取得SQL作成
+if(!isset($days)||$days == 0){
+    $stmt = $pdo->prepare("SELECT * FROM table2 INNER JOIN table3_test ON table2.MR_ID=table3_test.MR_ID 
+                            WHERE table2.USER_ID=:USER_ID and date= (select max(date)from table3_test AS us WHERE table3_test.USER_ID= us.user_id) ORDER BY step");
+    $stmt->bindValue(":USER_ID", $_SESSION["USER_ID"], PDO::PARAM_STR);
+    // echo $test1;
 }else{
-    $stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = '$days' ORDER BY step");
+    $stmt = $pdo->prepare("SELECT * FROM table2 INNER JOIN table3_test ON table2.MR_ID=table3_test.MR_ID 
+                            WHERE table2.USER_ID=:USER_ID and date = '$days' ORDER BY step");
+    $stmt->bindValue(":USER_ID", $_SESSION["USER_ID"], PDO::PARAM_STR);
+    // echo $test2;
 }
-//$stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date = '$days' ORDER BY step");
-//$stmt = $pdo->prepare("SELECT* FROM table3_test WHERE date= (select max(date)from table3_test) ORDER BY step");
 $status = $stmt->execute();
 
-//loop through the returned data
-while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
+if ($status == false) {
+    sql_error($stmt);
+} else {
+    //loop through the returned data
+    while( $r = $stmt->fetch(PDO::FETCH_ASSOC)){
 
-    $plan_time .= '"' . $r["plan"] . '",';
-    $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
-    //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
-    $step = $step .'"' .$r["action"] .'",';
-    $date = date('m月d日', strtotime($r["date"]));
+        $plan_time .= '"' . $r["plan"] . '",';
+        $end_time .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
+        //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
+        $step = $step .'"' .$r["action"] .'",';
+        $date = date('m月d日', strtotime($r["date"]));
 
+    }
 }
 
 $plan_time = trim($plan_time,",");
-//var_dump($end_time);
+// var_dump($plan_time);
 $end_time = trim($end_time,",");
-//$step = trim($step,",");
-// $key = array_key_last($end_time);
-//echo $end_time[$key];
-//echo end($end_time);
 //var_dump($end_time);
-
-
-//2．日付データ取得SQL作成
-//prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-$stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
-
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -106,29 +108,38 @@ $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
 
 <section id = "main">
 
-<form method="post" style = "margin: 20px">
+<form method="post" style = "margin: 20px;text-align: center;">
     <?php
+    //2．ログ選択用のデータ取得SQL作成
+    //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
+    // $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
+    $stmt2 = $pdo->prepare("SELECT date FROM table2 INNER JOIN table3_test ON table2.MR_ID=table3_test.MR_ID WHERE table2.USER_ID=:USER_ID GROUP BY date");
+    $stmt2->bindValue(":USER_ID", $_SESSION["USER_ID"], PDO::PARAM_STR);
     //SQLの実行分
     $status2 = $stmt2->execute();
-    $option="";
-    //loop through the returned data
-    while( $r = $stmt2->fetch(PDO::FETCH_ASSOC)){
-        //$dates .= date('m月d日', strtotime($r["date"]));
-        $option .= '<option value='.$r["date"].'>'.date('m月d日', strtotime($r["date"])).'</option>';
-    }
+
+    if ($status2 == false) {
+        sql_error($stmt2);
+    } else {
+        $option="";
+        //loop through the returned data
+        while( $r2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+            $option .= '<option value='.$r2["date"].'>'.date('m月d日', strtotime($r2["date"])).'</option>';
+        }
         $view .= '<select name="days">';
         $view .= "<option value=0 selected>--選択してください--</option>";
         $view .= $option;
-        $view .= '</select><br>';
+        $view .= '</select>';
         echo $view;
+    }
     ?>
     <input type="submit" name="btn_submit" value="表示" style = "margin: 10px">
 </form>
 
 <div class = "days">
-    <div><p id="pd"><<</p></div>
+    <!-- <div><p id="pd"><<</p></div> -->
     <h2 style="text-align: center"><?=$date?></h2>
-    <div><p id="nd">>></p></div>
+    <!-- <div><p id="nd">>></p></div> -->
 </div>
 
 <div class="chart">
@@ -158,9 +169,9 @@ $stmt2 = $pdo->prepare("SELECT date FROM table3_test GROUP BY date");
         <th>Practice</th>
         </tr>
         <?php
+        //表の表示（グラフと同じ条件）
         //SQLの実行分
         $status = $stmt->execute();
-
         //３．データ表示
         if($status==false) {
             //SQLエラーの場合
@@ -240,15 +251,17 @@ var myChart = new Chart(ctx, {
                 time: {
                     parser: 'HH:mm',
                     unit: 'minute',
-                    stepSize: 30,
+                    stepSize: 20,
                     displayFormats: {
                         'hour': 'HH:mm'
                     }
                 },
                 //X軸の範囲を指定
                 ticks: {
-                    min: '07:00',
-                    max: '11:00'//'end($end_time)';
+                    //min: '07:00:00',
+                    min:[<?php echo $plan_time ?>].shift(),
+                    //max: '11:00:00'//'end($end_time)';
+                    max:[<?php echo $end_time ?>].pop()
                 }
             }],
             xAxes: [{
