@@ -24,6 +24,13 @@ if ($package["IMG_URL"] == "") {
 } else {
   $bg_url = $package["IMG_URL"];
 }
+
+//フォーロー機能のための記述
+//ログインしているユーザーのUSER_ID
+$current_user = $_SESSION['USER_ID'];
+//表示されているルーティーンを作成したユーザーのUSRE_ID
+$profile_user = $package['USER_ID'];
+
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +91,23 @@ if ($package["IMG_URL"] == "") {
   <div style="text-align: center; background-image: url('<?= $bg_url ?>');" id="routine_name_bgi">
     <p id="routine_name"><?= $package["ROUTINE_NAME"] ?></p>
   </div>
+  <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
+  <?php if ($current_user != $profile_user) : ?>
+    <?php if (check_follow($current_user, $profile_user)) : ?>
+      <form action="follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+        <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
+        <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+        <input type="submit" value="フォロー中">
+      </form>
+    <?php else : ?>
+      <form action="follow.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+        <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
+        <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+        <input type="submit" value="フォロー">
+      </form>
+    <?php endif; ?>
+
+  <?php endif; ?>
   <!-- テーブル -->
   <?php
   //２．ルーティンパッケージ抽出SQL作成

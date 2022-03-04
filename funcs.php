@@ -93,3 +93,17 @@ function dd($arr) {
   echo "</pre>";
   exit;
 }
+
+function check_follow($follow_user, $follower_user)
+{
+  $pdo = db_conn();
+  $sql = "SELECT follow_id,followed_id
+          FROM follow_table
+          WHERE :followed_id = followed_id AND :follow_id = follow_id";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(
+    ':follow_id' => $follow_user,
+    ':followed_id' => $follower_user
+  ));
+  return  $stmt->fetch();
+}
