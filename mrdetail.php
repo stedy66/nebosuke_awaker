@@ -25,6 +25,20 @@ if ($package["IMG_URL"] == "") {
   $bg_url = $package["IMG_URL"];
 }
 
+//このルーティーンを登録したユーザーの情報を取得（プロフィール画面への遷移用）
+$user_id = $package['USER_ID'];
+
+$user_stmt = $pdo->prepare("SELECT * FROM table4 WHERE USER_ID=:USER_ID");
+$user_stmt->bindValue(":USER_ID", $user_id, PDO::PARAM_INT);
+$user_status = $user_stmt->execute();
+
+if ($user_status == false) {
+  sql_error($user_status);
+} else {
+  $user = $user_stmt->fetch(pdo::FETCH_ASSOC);
+}
+
+
 //フォーロー機能のための記述
 //ログインしているユーザーのUSER_ID
 $current_user = $_SESSION['USER_ID'];
@@ -113,6 +127,11 @@ $result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
   </div>
   <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
   <?php if ($current_user != $profile_user) : ?>
+    <!-- プロフィール画面への遷移用
+    SQLで挿入したデータで無ければ正常に動くと思う -->
+    <a href="user_detail.php?USER_ID=<?=$user["USER_ID"]?>">
+      <p><?= $user["USER_NAME"] ?>のプロフィール</p>
+    </a>
     <p><?= $result_follow["COUNT(*)"] ?> フォロー</p>
     <p><?= $result_followed["COUNT(*)"] ?> フォロワー</p>
     <?php if (check_follow($current_user, $profile_user)) : ?>
