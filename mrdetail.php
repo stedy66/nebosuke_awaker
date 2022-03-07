@@ -113,8 +113,8 @@ $result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
   </div>
   <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
   <?php if ($current_user != $profile_user) : ?>
-    <p><?= $result_follow["COUNT(*)"] ?> Follow</p>
-    <p><?= $result_followed["COUNT(*)"] ?> Follower</p>
+    <p><?= $result_follow["COUNT(*)"] ?> フォロー</p>
+    <p><?= $result_followed["COUNT(*)"] ?> フォロワー</p>
     <?php if (check_follow($current_user, $profile_user)) : ?>
       <form action="follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
         <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
