@@ -107,3 +107,17 @@ function check_follow($follow_user, $follower_user)
   ));
   return  $stmt->fetch();
 }
+
+function check_like($like_user, $like_MR)
+{
+  $pdo = db_conn();
+  $sql = "SELECT USER_ID, MR_ID
+          FROM like_table
+          WHERE :MR_ID = MR_ID AND :USER_ID = USER_ID";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(
+    ':USER_ID' => $like_user,
+    ':MR_ID' => $like_MR
+  ));
+  return  $stmt->fetch();
+}

@@ -107,6 +107,22 @@ $profile_user = $package['USER_ID'];
       </form>
     <?php endif; ?>
 
+    <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
+    <?php if ($current_user != $profile_user) : ?>
+      <?php if (check_like($current_user, $MR_ID)) : ?>
+        <form action="like_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+          <input type="hidden" name="like_user" value="<?= $current_user ?>">
+          <input type="submit" value="いいね済み">
+        </form>
+      <?php else : ?>
+        <form action="like.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+          <input type="hidden" name="like_user" value="<?= $current_user ?>">
+          <input type="submit" value="いいね！">
+        </form>
+      <?php endif; ?>
+
+    <?php endif; ?>
+
   <?php endif; ?>
   <!-- テーブル -->
   <?php
