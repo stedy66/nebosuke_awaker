@@ -31,6 +31,26 @@ $current_user = $_SESSION['USER_ID'];
 //表示されているルーティーンを作成したユーザーのUSRE_ID
 $profile_user = $package['USER_ID'];
 
+//フォロー数の取得
+// follow_table からこのルーティーンを登録したユーザーがフォローしている数を取得
+$stmt_follow = $pdo->prepare('SELECT COUNT(*) FROM follow_table WHERE follow_id=:follow_id;');
+$stmt_follow->bindValue(':follow_id', $profile_user, PDO::PARAM_STR);
+$status_follow = $stmt_follow->execute();
+$result_follow = $stmt_follow->fetch(PDO::FETCH_ASSOC);
+
+
+// follow_table からこのルーティーンを登録したユーザーがフォローされている人数を取得
+$stmt_followed = $pdo->prepare('SELECT COUNT(*) FROM follow_table WHERE followed_id=:followed_id;');
+$stmt_followed->bindValue(':followed_id', $profile_user, PDO::PARAM_STR);
+$status_followed = $stmt_followed->execute();
+$result_followed = $stmt_followed->fetch(PDO::FETCH_ASSOC);
+
+//いいねの数を取得
+$stmt_like = $pdo->prepare('SELECT COUNT(*) FROM like_table WHERE MR_ID=:MR_ID;');
+$stmt_like->bindValue(':MR_ID', $MR_ID, PDO::PARAM_STR);
+$status_like = $stmt_like->execute();
+$result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -93,6 +113,8 @@ $profile_user = $package['USER_ID'];
   </div>
   <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
   <?php if ($current_user != $profile_user) : ?>
+    <p><?= $result_follow["COUNT(*)"] ?> Follow</p>
+    <p><?= $result_followed["COUNT(*)"] ?> Follower</p>
     <?php if (check_follow($current_user, $profile_user)) : ?>
       <form action="follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
         <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
@@ -108,6 +130,7 @@ $profile_user = $package['USER_ID'];
     <?php endif; ?>
 
     <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
+    <p><?= $result_like["COUNT(*)"] ?> いいね！</p>
     <?php if ($current_user != $profile_user) : ?>
       <?php if (check_like($current_user, $MR_ID)) : ?>
         <form action="like_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
