@@ -29,7 +29,7 @@ if ($package["IMG_URL"] == "") {
 $user_id = $package['USER_ID'];
 
 $user_stmt = $pdo->prepare("SELECT * FROM table4 WHERE USER_ID=:USER_ID");
-$user_stmt->bindValue(":USER_ID", $user_id, PDO::PARAM_INT);
+$user_stmt->bindValue(":USER_ID", $user_id, PDO::PARAM_STR);
 $user_status = $user_stmt->execute();
 
 if ($user_status == false) {
@@ -37,7 +37,6 @@ if ($user_status == false) {
 } else {
   $user = $user_stmt->fetch(pdo::FETCH_ASSOC);
 }
-
 
 //フォーロー機能のための記述
 //ログインしているユーザーのUSER_ID

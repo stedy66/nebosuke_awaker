@@ -1,13 +1,16 @@
 <?php
 session_start();
-//GET送信されたMR_IDを取得
-$USER_ID = $_GET["USER_ID"];
+
+//$follow_idはユーザーのID、folllowed_idはルーティーンを登録したユーザーのID
+$follow_id = $_SESSION['USER_ID'];
+$followed_id = $_GET["USER_ID"];
+
 include("funcs.php");
 sschk();
 $pdo = db_conn();
 
 $user_stmt = $pdo->prepare("SELECT * FROM table4 WHERE USER_ID=:USER_ID");
-$user_stmt->bindValue(":USER_ID", $USER_ID, PDO::PARAM_INT);
+$user_stmt->bindValue(":USER_ID", $followed_id, PDO::PARAM_INT);
 $user_status = $user_stmt->execute();
 
 if ($user_status == false) {
@@ -16,23 +19,21 @@ if ($user_status == false) {
     $user = $user_stmt->fetch(pdo::FETCH_ASSOC);
 }
 
+
 //フォロー数の取得
 // follow_table からこのルーティーンを登録したユーザーがフォローしている数を取得
 $stmt_follow = $pdo->prepare('SELECT COUNT(*) FROM follow_table WHERE follow_id=:follow_id;');
-$stmt_follow->bindValue(':follow_id', $USER_ID, PDO::PARAM_STR);
+$stmt_follow->bindValue(':follow_id', $followed_id, PDO::PARAM_STR);
 $status_follow = $stmt_follow->execute();
 $result_follow = $stmt_follow->fetch(PDO::FETCH_ASSOC);
 
 
 // follow_table からこのルーティーンを登録したユーザーがフォローされている人数を取得
 $stmt_followed = $pdo->prepare('SELECT COUNT(*) FROM follow_table WHERE followed_id=:followed_id;');
-$stmt_followed->bindValue(':followed_id', $USER_ID, PDO::PARAM_STR);
+$stmt_followed->bindValue(':followed_id', $followed_id, PDO::PARAM_STR);
 $status_followed = $stmt_followed->execute();
 $result_followed = $stmt_followed->fetch(PDO::FETCH_ASSOC);
 
-
-$follow_id = $_SESSION['USER_ID'];
-$followed_id = $_GET["USER_ID"];
 
 ?>
 
@@ -90,26 +91,25 @@ $followed_id = $_GET["USER_ID"];
     } else {
         echo '<img style="width:50px;" src="upload/' . $user['icon'] . '" alt="">';
     }
-    ?>
-    <!-- 画像、ルーティン -->
+    ?>    <!-- 画像、ルーティン -->
     <p><?= $result_follow["COUNT(*)"] ?> フォロー</p>
     <p><?= $result_followed["COUNT(*)"] ?> フォロワー</p>
-    <?php if ($follow_id != $USER_ID) : ?>
+    <?php if ($follow_id != $followed_id) : ?>
 
         <!-- ここから再開
         user_follow_delete.php
         user_follow.phpを作る
         user_follow.php及びuser_follow_delete.phpのURLの後ろがおかしいので修正する -->
         <?php if (check_follow($follow_id, $followed_id)) : ?>
-            <form action="user_follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
-                <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
-                <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+            <form action="user_follow_delete.php?USER_ID=<?php echo $followed_id ?>" method="post">
+                <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
+                <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
                 <input type="submit" value="フォロー中">
             </form>
         <?php else : ?>
-            <form action="user_follow.php?MR_ID=<?php echo $MR_ID ?>" method="post">
-                <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
-                <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+            <form action="user_follow.php" method="post">
+                <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
+                <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
                 <input type="submit" value="フォロー">
             </form>
         <?php endif; ?>
