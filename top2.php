@@ -139,7 +139,7 @@ $user = $stmt->fetch();
     $i = 0;
     echo '<div class="multiple-items">';
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-      if ($i >= 10) {
+      if ($i >= 30) {
         break;
       }
       $view = '';
