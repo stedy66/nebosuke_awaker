@@ -56,7 +56,7 @@ $user = $stmt->fetch();
             <a href="log.php">私の記録</a>
           </li>
           <li>
-            <a href="logshare.php">みんなの記録</a>
+            <a href="logsharelist.php">みんなの記録</a>
           </li>
           <li>
             <a href="top2.php">TOP</a>

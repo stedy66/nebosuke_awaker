@@ -15,7 +15,7 @@ $pdo = db_conn();
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/mrplist.css">
   <link rel="stylesheet" href="css/top2style-copy.css">
-  <title>Document</title>
+  <title>みんなのの記録一覧</title>
 </head>
 
 <body>
@@ -62,17 +62,17 @@ $pdo = db_conn();
   ?>
   <?php
   //シェアされたMRの一覧取得
-  $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
+  $stmt = $pdo->prepare("SELECT * FROM logshare_table");
   $status = $stmt->execute();
   if ($status == false) {
     sql_error($stmt);
   } else {
     while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
       $view = '';
-      $view .= '<a href="logshere2.php?MR_ID=' . $r["MR_ID"] . ' & USER_ID=' . $r["USER_ID"] . '">';
+      $view .= '<a href="logshare2.php?LOG_ID=' . $r["LOG_ID"] . '">';
       $view .= '<div class="mrp" style="background-image: url(upload/default_bg.jpg);">';
       $view .= '<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
-      $view .= '<p>' . $r["ROUTINE_NAME"] . '<p>';
+      $view .= '<p>' . $r["USER_ID"] . '<p>';
       $view .= '</div>';
       $view .= '</a>';
       echo $view;

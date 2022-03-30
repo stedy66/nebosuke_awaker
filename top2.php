@@ -59,7 +59,7 @@ $user = $stmt->fetch();
             <a href="log.php">私の記録</a>
           </li>
           <li>
-            <a href="minlog.php">みんなの記録</a>
+            <a href="logsharelist.php">みんなの記録</a>
           </li>
         </ul>
       </div>
@@ -166,10 +166,10 @@ $user = $stmt->fetch();
     echo '</div>';
   }
   ?>
-  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなの記録　<a style="text-decoration: none;" href="minlog.php">すべて表示</a></p>
+  <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">みんなの記録　<a style="text-decoration: none;" href="logsharelist.php">すべて表示</a></p>
   <?php
-  //みんなのMRの一覧取得
-  $stmt = $pdo->prepare("SELECT * FROM table1_1 WHERE SHARED=1 ORDER BY DOWNLOAD_NUM DESC");
+  //みんなの記録の一覧取得
+  $stmt = $pdo->prepare("SELECT * FROM logshare_table");
   $status = $stmt->execute();
   if ($status == false) {
     sql_error($stmt);
@@ -181,7 +181,7 @@ $user = $stmt->fetch();
         break;
       }
       $view = '';
-      $view .= '<a style="text-decoration: none;" href="logshere2.php?MR_ID=' . $r["MR_ID"] . ' & USER_ID=' . $r["USER_ID"] . '">';
+      $view .= '<a style="text-decoration: none;" href="logshare2.php?LOG_ID=' . $r["LOG_ID"] . '">';
       $view .= '<div>';
       if ($i % 3 == 0) {
         $view .= '<div class="mrp" style="background-image: url(img/pexels-engin-akyurt-2299028.jpg)">';
@@ -193,7 +193,7 @@ $user = $stmt->fetch();
       // $view.='<img src="img/ネボスケロゴ_文字黒.jpg" class="logo">';
       $view .= '</div>';
       // $view.='<a href="mrdetail.php?MR_ID='.$r["MR_ID"].'">';
-      $view .= '<p class="mrp_name">' . $r["ROUTINE_NAME"] . '</p>';
+      $view .= '<p class="mrp_name">' . $r["USER_ID"] . '</p>';
       $view .= '</div>';
       $view .= '</a>';
       echo $view;

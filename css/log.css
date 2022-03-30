@@ -41,19 +41,19 @@ input[type=radio]+label:before{
   width: 120px;
   height: 120px;
 }
-input[type=radio][value="1"]+label:before{
+input[type=radio][value="Excellent"]+label:before{
   background-image: url(../img/kao12.png);
 }
-input[type=radio][value="2"]+label:before{
+input[type=radio][value="VeryGood"]+label:before{
   background-image: url(../img/kao22.png);
 }
-input[type=radio][value="3"]+label:before{
+input[type=radio][value="Good"]+label:before{
   background-image: url(../img/kao32.png);
 }
-input[type=radio][value="4"]+label:before{
+input[type=radio][value="Average"]+label:before{
   background-image: url(../img/kao42.png);
 }
-input[type=radio][value="5"]+label:before{
+input[type=radio][value="Poor"]+label:before{
   background-image: url(../img/kao52.png);
 }
 input[type=radio]:checked+label::before{
