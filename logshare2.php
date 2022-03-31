@@ -1,38 +1,74 @@
 <?php
+//0. SESSION開始！！
 session_start();
-//GET送信されたMR_IDを取得
-$MR_ID = $_GET["MR_ID"];
-$user_id = $_GET["USER_ID"];
 
-include("funcs.php");
-sschk();
+include('funcs.php');
+
+//2. DB接続します
 $pdo = db_conn();
 
-//1．ルーティンパッケージ抽出SQL作成
-$stmt = $pdo->prepare("SELECT * FROM table5_test WHERE MR_ID=:MR_ID AND user_id=:USER_ID");
-$stmt->bindValue(":MR_ID", $MR_ID, PDO::PARAM_INT);
-$stmt->bindValue(":USER_ID", $user_id, PDO::PARAM_INT);
-$status = $stmt->execute();
+//LOGINチェック → funcs.phpへ関数化しましょう！
+sschk();
+
+//GET送信されたMR_IDを取得
+$LOG_ID = $_GET["LOG_ID"];
 
 $plan_time = '';
 $end_time = '';
 $step = '';
 
-//loop through the returned data
-while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $plan_time = $plan_time . '"' . date('H:i', strtotime($r["plan"])) . '",';
-    $end_time = $end_time . '"' . date('H:i', strtotime($r["end_time"])) . '",';
-    $step = $step . '"' . $r["step"] . '",';
-    $date = date('m月d日', strtotime($r["date"]));
+//2．データ登録SQL作成
+//prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
+//logshare_tableのデータ取得
+$stmt1 = $pdo->prepare("SELECT* FROM logshare_table WHERE LOG_ID=:LOG_ID");
+$stmt1->bindValue(":LOG_ID", $LOG_ID, PDO::PARAM_INT);
+//SQLの実行分
+$status1 = $stmt1->execute();
+//３．データ作成
+if ($status1 == false) {
+    sql_error($stmt1);
+  } else {
+    $package = $stmt1->fetch(pdo::FETCH_ASSOC);
+    $date = date('m月d日', strtotime($package["date"]));
+    $user_name = $package["USER_ID"];
+    $comment = $package["comment"];
+    $evalistion = $package["evaluation"];
+  }
 
-    $user_id = $r["user_id"];
-    $comment = $r["comment"];
-    $evaluation = $r["evaluation"];
+
+//logsequence_tableのデータ取得
+$stmt2 = $pdo->prepare("SELECT* FROM logsequence_table WHERE LOG_ID=:LOG_ID");
+$stmt2->bindValue(":LOG_ID", $LOG_ID, PDO::PARAM_INT);
+//SQLの実行分
+$status2 = $stmt2->execute();
+//３．データ作成
+if ($status2 == false) {
+    sql_error($stmt2);
+} else {
+    //loop through the returned data
+    while( $r = $stmt2->fetch(PDO::FETCH_ASSOC)){
+        $plan_time1 .= '"' .date('H:i', strtotime($r["plan"])) .'",';
+        $end_time1  .= '"' .date('H:i', strtotime($r["end_time"])) .'",';
+        $step = $step .'"' .$r["action"] .'",';
+    }
+}
+//折れ線グラフ表示関係
+$plan_time = trim($plan_time1, ",");
+$end_time = trim($end_time1, ",");
+
+//グラフ上限下限の値作成
+//planの最初の時間を取り出し開始時間にする
+$start_time = array_values(preg_split("/[\s,]+/", $plan_time))[0];
+//plan,endそれぞれ最後の時間を取り出す
+$finish_time1 = end(preg_split("/[\s,]+/", $plan_time));
+$finish_time2 = end(preg_split("/[\s,]+/", $end_time));
+//planかendで最後の時間が遅い方を終了時間にする
+if($finish_time1 > $finish_time2){
+    $finish_time = $finish_time1;
+}else{
+    $finish_time = $finish_time2;
 }
 
-$plan_time = trim($plan_time, ",");
-$end_time = trim($end_time, ",");
-$step = trim($step, ",");
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +86,7 @@ $step = trim($step, ",");
 <body>
     <!-- Main[Start] -->
     <header>
-        <div class="home"><?php echo $user_id ?>さんのログ</div>
+        <div class="home"><?php echo $user_name; ?>さんのログ</div>
         <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
         <div class="hamburger-menu">
             <input type="checkbox" id="menu-btn-check">
@@ -84,21 +120,13 @@ $step = trim($step, ",");
         </div>
     </header>
     <section id="main">
-        <h2 style="text-align: center"><?php if ($date = '' || !isset($date)) {
-                                            echo '';
-                                        } else {
-                                            echo  $date;
-                                        } ?></h2>
+        <h2 style="text-align: center"><?= $date ?></h2>
         <div class="chart">
             <canvas id="myChart" width="600" height="300"></canvas>
         </div>
         <div class="a">コメント</div>
         <div class="comment">
-            <p><?php if ($comment = '' || !isset($comment)) {
-                    echo '';
-                } else {
-                    echo  $comment;
-                } ?></p>
+            <p><?= $comment ?></p>
         </div>
 
         <div style="text-align: center">
@@ -128,18 +156,15 @@ $step = trim($step, ",");
                     <th>Practice</th>
                 </tr>
                 <?php
-                //2．データ登録SQL作成
-                //prepare("")の中にはmysqlのSQLで入力したINSERT文を入れて修正すれば良いイメージ
-                $stmt = $pdo->prepare("SELECT* FROM table3_test ORDER BY step");
-                $status = $stmt->execute();
-
+                //SQLの実行分
+                $status2 = $stmt2->execute();
                 //３．データ表示
-                if ($status == false) {
+                if ($status2 == false) {
                     //SQLエラーの場合
-                    sql_error($stmt);
+                    sql_error($stmt2);
                 } else {
                     //SQL成功の場合
-                    while ($r = $stmt->fetch(PDO::FETCH_ASSOC)) { //データ取得数分繰り返す
+                    while ($r = $stmt2->fetch(PDO::FETCH_ASSOC)) { //データ取得数分繰り返す
                         echo '<tr><td><name="action" value="5">' . $r["action"] . '</td>';
                         echo '<td>' . $r["time"] . 'min</td>';
                         echo '<td><time>' . date('H:i', strtotime($r["plan"])) . '</time></td>';
@@ -149,7 +174,7 @@ $step = trim($step, ",");
                 ?>
             </table>
         </div>
-
+        
     </section>
     <!-- Main[End] -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
@@ -206,22 +231,24 @@ $step = trim($step, ",");
                         time: {
                             parser: 'HH:mm',
                             unit: 'minute',
-                            stepSize: 30,
+                            stepSize: 20,
                             displayFormats: {
                                 'hour': 'HH:mm'
                             }
                         },
                         //X軸の範囲を指定
                         ticks: {
-                            min: '07:03',
-                            max: '10:21' //'end($end_time)';
+                            //min: '07:03',
+                            min:<?php echo $start_time ?>,
+                            //max: '10:21' 
+                            max:<?php echo $finish_time ?>
                         }
                     }],
                     xAxes: [{
                         //軸ラベル表示
                         scaleLabel: {
                             display: true,
-                            labelString: 'STEP'
+                            //labelString: 'STEP'
                         },
                         //X軸の範囲を指定
                         ticks: {

@@ -49,6 +49,7 @@ if ($status == false) {
         //$period = $period . '"'.date('H:i', strtotime($r["period"])) .'",';
         $step = $step .'"' .$r["action"] .'",';
         $date = date('m月d日', strtotime($r["date"]));
+        $datep = $r["date"];
     }
 }
 //折れ線グラフ表示関係
@@ -106,7 +107,7 @@ if($finish_time1 > $finish_time2){
                         <a href="log.php">私の記録</a>
                     </li>
                     <li>
-                        <a href="logshare.php">みんなの記録</a>
+                        <a href="logsharelist.php">みんなの記録</a>
                     </li>
                     <li>
                         <a href="top2.php">TOP</a>
@@ -156,19 +157,21 @@ if($finish_time1 > $finish_time2){
 <div class="chart">
 <canvas id="myChart" width="600" height="300"></canvas>
 </div>
-<form class="form" method="POST" action="logshare_act.php">
+<form class="form" method="POST" action="logshare_act2.php">
 
-    <input type="text" name="ROUTINE_NAME" class="comment" placeholder="コメント"/><br>
+    <input type="hidden" name="date" value=<?=$datep?>>   
 
-    <input type="radio" name="radio" value="1" id="radio1">
+    <input type="text" name="comment" class="comment" placeholder="コメント"/><br>
+
+    <input type="radio" name="evaluation" value="Excellent" id="radio1">
     <label for="radio1"></label>
-    <input type="radio" name="radio" value="2" id="radio2">
+    <input type="radio" name="evaluation" value="VeryGood" id="radio2">
     <label for="radio2"></label>
-    <input type="radio" name="radio" value="3" id="radio3">
+    <input type="radio" name="evaluation" value="Good" id="radio3">
     <label for="radio3"></label>
-    <input type="radio" name="radio" value="4" id="radio4">
+    <input type="radio" name="evaluation" value="Average" id="radio4">
     <label for="radio4"></label>
-    <input type="radio" name="radio" value="5" id="radio5">
+    <input type="radio" name="evaluation" value="Poor" id="radio5">
     <label for="radio5"></label>
 
     <div class="jumbotron">
@@ -291,16 +294,16 @@ var myChart = new Chart(ctx, {
     }
 });
 
-let d = "<?php echo $days ?>"
-console.log(d);
-//前日へ
-$("#pd").on("click", function() {
-    // $date->modify('-1 day');
-});
-//次の日へ
-$("#nd").on("click", function() {
-    // $date->modify('+1 day');
-});
+// let d = "<?php echo $days ?>"
+// console.log(d);
+// //前日へ
+// $("#pd").on("click", function() {
+//     // $date->modify('-1 day');
+// });
+// //次の日へ
+// $("#nd").on("click", function() {
+//     // $date->modify('+1 day');
+// });
 
 </script>
 </body>
