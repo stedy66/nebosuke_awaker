@@ -78,6 +78,7 @@ $user = $stmt->fetch();
   ?>
   <?php
   if (!isset($_SESSION['icon'])) {
+    echo '<img style="width:50px;" src="upload/default_icon.png" alt="">';
   } else {
     echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
   }
