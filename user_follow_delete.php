@@ -19,7 +19,7 @@ $status = $stmt->execute();
 if ($status == false) {
     sql_error($stmt);
 } else {
-    $url = "user_detail.php?USER_ID=" . $MR_ID;
+    $url = "user_detail.php?USER_ID=" . $followed_id;
     header("Location:" . $url);
     exit();
 }
