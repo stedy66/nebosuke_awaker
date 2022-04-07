@@ -1,3 +1,7 @@
+body {
+    background-color: #fef7e7;
+  }
+
 header {
   background-color: #ffc900;
   height: 100px;
@@ -6,20 +10,53 @@ header {
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-body {
-  background-color: #fef7e7;
+
+
+/* #head{
+    display: flex;
+    align-items: center;
+    justify-content: baseline; 
+} */
+.logo {
+    position: relative;
+    left: 20px;
+}
+.logo img {
+    border-radius: 50%;
+    width: 100px;
+  }
+.home{
+    position: relative;
+    left: 170px;
+    font-weight: 700; 
+    font-size: 30px;
+}
+.profile{
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 150px;
+}
+.icon{
+    width:50px;
+    border-radius: 50%;
+}
+.profile_name{
+    font-weight: 700; 
+    font-size: 20px;
+    position: relative;
+    left: 15px;
 }
 
-.home{
-  font-weight: 700; 
-  font-size: 30px;
-}
+
+
+
 .nav_item{
    margin: 80px 10px 10px 10px;
 }
@@ -141,6 +178,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 10px;
+  
 }
 
 /* 
@@ -151,12 +189,6 @@ body {
   border-radius: 100%;
   width: 150px;
 } */
-.logo {
-  position: absolute;
-  /* margin-top: 10px; */
-  margin-left: -250px;
-  border-radius: 50%;
-  width: 100px;
-}
+
 
 /*# sourceMappingURL=mrplist.css.map */
