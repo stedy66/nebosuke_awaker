@@ -90,42 +90,45 @@ $result_followed = $stmt_followed->fetch(PDO::FETCH_ASSOC);
     <div id="gazou">
         <img src="upload/default_bg.jpg" alt=""  >
     </div>
-    <div class="profile">
-        <div class="profile_icon">
-        <img class="icon" src="upload/<?= $user['icon'] ?> " alt="">
+    <div id="profile">
+        <div class="profile">
+            <div class="profile_icon">
+            <img class="icon" src="upload/<?= $user['icon'] ?> " alt="">
+            </div>
+            <div class="profile_name"><?= $user["USER_NAME"] ?></div>
         </div>
-        <div class="profile_name"><?= $user["USER_NAME"] ?></div>
-    </div>
-    <?php
-    // if (!isset($user['icon'])) {
-    //     echo '<img style="width:50px;" src="img/kao2.png" alt="">';
-    // } else {
-    //     echo '<img style="width:50px;" src="upload/' . $user['icon'] . '" alt="">';
-    // }
-    ?> 
-    <div id="follow">
-        <div class="follow"><p><?= $result_follow["COUNT(*)"] ?> フォロー</p></div>
-        <div class="followed"><p><?= $result_followed["COUNT(*)"] ?> フォロワー</p></div>
-    </div>
-    <?php if ($follow_id != $followed_id) : ?>
-        <!-- ここから再開
-        user_follow_delete.php
-        user_follow.phpを作る
-        user_follow.php及びuser_follow_delete.phpのURLの後ろがおかしいので修正する -->
-        <?php if (check_follow($follow_id, $followed_id)) : ?>
-                <form action="user_follow_delete.php?USER_ID=<?php echo $followed_id ?>" method="post">
-                    <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
-                    <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
-                    <input type="submit" value="フォロー中" class="btn">
-                </form>
-        <?php else : ?>
-                <form action="user_follow.php" method="post">
-                    <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
-                    <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
-                    <input type="submit" value="フォロー" class="btn">
-                </form>
+        <?php
+        // if (!isset($user['icon'])) {
+        //     echo '<img style="width:50px;" src="img/kao2.png" alt="">';
+        // } else {
+        //     echo '<img style="width:50px;" src="upload/' . $user['icon'] . '" alt="">';
+        // }
+        ?> 
+        <div id="follow">
+            <div class="follow"><p><?= $result_follow["COUNT(*)"] ?> フォロー</p></div>
+            <div class="followed"><p><?= $result_followed["COUNT(*)"] ?> フォロワー</p></div>
+        </div>
+        <?php if ($follow_id != $followed_id) : ?>
+            <!-- ここから再開
+            user_follow_delete.php
+            user_follow.phpを作る
+            user_follow.php及びuser_follow_delete.phpのURLの後ろがおかしいので修正する -->
+            <?php if (check_follow($follow_id, $followed_id)) : ?>
+                    <form action="user_follow_delete.php?USER_ID=<?php echo $followed_id ?>" method="post">
+                        <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
+                        <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
+                        <input type="submit" value="フォロー中" class="btn">
+                    </form>
+            <?php else : ?>
+                    <form action="user_follow.php" method="post">
+                        <input type="hidden" name="follow_id" value="<?= $follow_id ?>">
+                        <input type="hidden" name="followed_id" value="<?= $followed_id ?>">
+                        <input type="submit" value="フォロー" class="btn">
+                    </form>
+            <?php endif; ?>
         <?php endif; ?>
-    <?php endif; ?>
+    </div>
+
     
 </body>
 

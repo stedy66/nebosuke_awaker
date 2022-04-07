@@ -12,196 +12,207 @@ header {
             align-items: center;
   }
   
-  body {
-    background-color: #fef7e7;
-  }
+body {
+  background-color: #fef7e7;
+}
+
+#routine_name {
+  width: 60%;
+  height: 50px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#routine_name_bgi {
+  margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-image: url("../upload/default_bg.jpg");
+  height: 400px;
+  width: 98%;
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.step {
+  margin: 20px auto 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 70px;
+  width: 90%;
+  border-radius: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px #ccc;
+          box-shadow: 3px 3px #ccc;
+}
+
+.step p {
+  font-size: 20px;
+}
+
+.step .step_seq {
+  width: 30px;
+  height: 100%;
+  background-color: #ffc900;
+  border-radius: 20px 0 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_name {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_period {
+  width: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.step .step_description {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#comment {
+  margin: 20px auto 20px auto;
+  width: 90%;
+  border-radius: 20px;
+  background-color: #fff;
+  border: 2px solid #ffc900;
+  padding: 8px 8px;
+  font-size: 20px;
+  line-height: 150%;
+}
+/*# sourceMappingURL=mrdetail.css.map */
+
+#gazou {
+  text-align: center
+}
+
+#gazou img {
+  width:600px;
+  height:300px;
+  border-radius: 10px;
+  padding-top: 10px;
+}
   
-  #routine_name {
-    width: 60%;
-    height: 50px;
-    text-align: center;
-    border-radius: 10px;
-    font-size: 30px;
-    font-weight: bold;
-  }
-  
-  #routine_name_bgi {
-    margin-top: 40px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background-image: url("../upload/default_bg.jpg");
-    height: 400px;
-    width: 98%;
-    border-radius: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  
-  .step {
-    margin: 20px auto 20px auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    height: 70px;
-    width: 90%;
-    border-radius: 20px;
-    background-color: #fff;
-    -webkit-box-shadow: 3px 3px #ccc;
-            box-shadow: 3px 3px #ccc;
-  }
-  
-  .step p {
-    font-size: 20px;
-  }
-  
-  .step .step_seq {
-    width: 30px;
-    height: 100%;
-    background-color: #ffc900;
-    border-radius: 20px 0 0 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  
-  .step .step_name {
-    width: 30%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  
-  .step .step_period {
-    width: 10%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  
-  .step .step_description {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-  }
-  
-  #comment {
-    margin: 20px auto 20px auto;
-    width: 90%;
-    border-radius: 20px;
-    background-color: #fff;
-    border: 2px solid #ffc900;
-    padding: 8px 8px;
-    font-size: 20px;
-    line-height: 150%;
-  }
-  /*# sourceMappingURL=mrdetail.css.map */
-  
-  #gazou {
-    text-align: center
-  }
-  
-  #gazou img {
-    width:600px;
-    height:300px;
-    border-radius: 10px;
-    padding-top: 10px;
-  }
-  
-  .profile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    /* left: 150px; */
-  }
-  .icon{
-    width:100px;
-    border-radius: 50%;
-    border: 5px solid #ccc;
-    box-sizing: border-box;
-  }
-  .profile_name{
-    font-weight: 700; 
-    font-size: 30px;
-    position: relative;
-    left: 15px;
-  }
-  
-  #follow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position:relative;
-    top: 20px;
-  
-  }
-  
-  .follow {
-    position: relative;
-    right: 20px;
-    font-size: 18pt;
-    font-weight: 500; 
-  }
-  
-  .followed {
-    position: relative;
-    left: 20px;
-    font-size: 18pt;
-    font-weight: 500; 
-  }
-  
-  form {
-    text-align: center;
-    margin: 50px;
-  }
-  
-  .btn {
-    display: inline-block;
-    border-radius : 7%;          /* 角丸       */
-    font-size     : 18pt;        /* 文字サイズ */
-    text-align    : center;      /* 文字位置   */
-    cursor        : pointer;     /* カーソル   */
-    padding       : 10px 30px;   /* 余白       */
-    background    : #ffc900;     /* 背景色     */
-    color         : #000000;     /* 文字色     */
-    line-height   : 1em;         /* 1行の高さ  */
-    transition    : .3s;         /* なめらか変化 */
-    border        : 2px solid #ffc900;    /* 枠の指定 */
-    text-decoration: none;
-  }
+#profile {
+  margin: 20px auto 20px auto;
+  height: 250px;
+  width: 600px;
+  border-radius: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px #ccc;
+          box-shadow: 3px 3px #ccc;
+}
+
+.profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10px;
+  /* left: 150px; */
+}
+.icon{
+  width:100px;
+  border-radius: 50%;
+  border: 5px solid #ccc;
+  box-sizing: border-box;
+}
+.profile_name{
+  font-weight: 700; 
+  font-size: 30px;
+  position: relative;
+  left: 15px;
+}
+
+#follow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:relative;
+  top: 20px;
+
+}
+
+.follow {
+  position: relative;
+  right: 20px;
+  font-size: 18pt;
+  font-weight: 500; 
+}
+
+.followed {
+  position: relative;
+  left: 20px;
+  font-size: 18pt;
+  font-weight: 500; 
+}
+
+form {
+  text-align: center;
+  margin: 50px;
+}
+
+.btn {
+  display: inline-block;
+  border-radius : 7%;          /* 角丸       */
+  font-size     : 18pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 30px;   /* 余白       */
+  background    : #ffc900;     /* 背景色     */
+  color         : #000000;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  transition    : .3s;         /* なめらか変化 */
+  border        : 2px solid #ffc900;    /* 枠の指定 */
+  text-decoration: none;
+}

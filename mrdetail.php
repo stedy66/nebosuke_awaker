@@ -115,23 +115,76 @@ $result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
     </div>
   </header>
   <?php
-  if (!isset($_SESSION['icon'])) {
-  } else {
-    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
-  }
+  // if (!isset($_SESSION['icon'])) {
+  // } else {
+  //   echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
+  // }
   ?>
   <!-- 画像、ルーティン -->
   <div style="text-align: center; background-image: url('<?= $bg_url ?>');" id="routine_name_bgi">
     <p id="routine_name"><?= $package["ROUTINE_NAME"] ?></p>
   </div>
+
+  
   <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
   <?php if ($current_user != $profile_user) : ?>
     <!-- プロフィール画面への遷移用
     SQLで挿入したデータで無ければ正常に動くと思う -->
-    <a href="user_detail.php?USER_ID=<?=$user["USER_ID"]?>">
+    <div id="profile">
+      <div class="profile">
+        <div class="profile_icon">
+            <a href="user_detail.php?USER_ID=<?=$user["USER_ID"]?>">
+            <img class="icon" src="upload/<?= $user['icon'] ?> " alt="">
+          </div>
+          <div class="profile_name"><?= $user["USER_NAME"] ?></div></a>
+      </div>
+      <div class="follow">
+        <p><?= $result_follow["COUNT(*)"] ?> 　フォロー</p>
+        <p><?= $result_followed["COUNT(*)"] ?> 　フォロワー</p>
+      </div>
+      <div class="follow_form">
+        <?php if (check_follow($current_user, $profile_user)) : ?>
+          <form action="follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+            <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
+            <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+            <input type="submit" value="フォロー中" class="btn">
+          </form>
+        <?php else : ?>
+          <form action="follow.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+            <input type="hidden" name="current_user_id" value="<?= $current_user ?>">
+            <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
+            <input type="submit" value="フォロー" class="btn">
+          </form>
+        <?php endif; ?>
+      </div>
+    </div>
+    <div id="iine">
+      <div class="iine">
+        <p><?= $result_like["COUNT(*)"] ?> いいね！</p>
+      </div>
+      <div class="iine_form">
+        <?php if ($current_user != $profile_user) : ?>
+          <?php if (check_like($current_user, $MR_ID)) : ?>
+            <form action="like_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+              <input type="hidden" name="like_user" value="<?= $current_user ?>">
+              <input type="submit" value="いいね済み" class="btn">
+            </form>
+          <?php else : ?>
+            <form action="like.php?MR_ID=<?php echo $MR_ID ?>" method="post">
+              <input type="hidden" name="like_user" value="<?= $current_user ?>">
+              <input type="submit" value="いいね！" class="btn">
+            </form>
+          <?php endif; ?>
+
+        <?php endif; ?>
+      </div>
+
+    </div>
+
+    <!-- <a href="user_detail.php?USER_ID=<?=$user["USER_ID"]?>">
       <p><?= $user["USER_NAME"] ?>のプロフィール</p>
-    </a>
-    <p><?= $result_follow["COUNT(*)"] ?> フォロー</p>
+    </a> -->
+    <!-- <p><?= $result_follow["COUNT(*)"] ?> フォロー</p>
     <p><?= $result_followed["COUNT(*)"] ?> フォロワー</p>
     <?php if (check_follow($current_user, $profile_user)) : ?>
       <form action="follow_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
@@ -145,10 +198,10 @@ $result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
         <input type="hidden" name="follow_user_id" value="<?= $profile_user ?>">
         <input type="submit" value="フォロー">
       </form>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
     <!-- ログインしているユーザーと閲覧しているルーティーンを作成したユーザーが異なる場合ボタンを表示 -->
-    <p><?= $result_like["COUNT(*)"] ?> いいね！</p>
+    <!-- <p><?= $result_like["COUNT(*)"] ?> いいね！</p>
     <?php if ($current_user != $profile_user) : ?>
       <?php if (check_like($current_user, $MR_ID)) : ?>
         <form action="like_delete.php?MR_ID=<?php echo $MR_ID ?>" method="post">
@@ -162,9 +215,11 @@ $result_like = $stmt_like->fetch(PDO::FETCH_ASSOC);
         </form>
       <?php endif; ?>
 
-    <?php endif; ?>
+    <?php endif; ?> -->
 
   <?php endif; ?>
+
+
   <!-- テーブル -->
   <?php
   //２．ルーティンパッケージ抽出SQL作成

@@ -130,7 +130,6 @@ body {
   font-size: 20px;
   line-height: 150%;
 }
-/*# sourceMappingURL=mrdetail.css.map */
 
 #gazou {
   text-align: center
@@ -143,52 +142,80 @@ body {
   padding-top: 10px;
 }
 
-.profile{
+#profile{
+  margin: 20px auto 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  /* left: 150px; */
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+          justify-content: space-around;
+  height: 100px;
+  width: 90%;
+  border-radius: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px #ccc;
+          box-shadow: 3px 3px #ccc;
+}
+
+.profile {
+ display: flex;
+ align-items: center;
 }
 .icon{
-  width:100px;
+  width:90px;
   border-radius: 50%;
   border: 5px solid #ccc;
   box-sizing: border-box;
+  position:relative;
+  left: 10px;
 }
 .profile_name{
   font-weight: 700; 
   font-size: 30px;
   position: relative;
-  left: 15px;
+  left: 20px;
 }
 
-#follow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position:relative;
-  top: 20px;
-
+a {
+  text-decoration: none;
 }
 
 .follow {
   position: relative;
-  right: 20px;
-  font-size: 18pt;
-  font-weight: 500; 
+  left:60px;
+  font-size: 15pt;
+  /* font-weight: 500;  */
 }
 
-.followed {
+#iine {
+  margin: 20px auto 20px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+          justify-content: space-around;
+  height: 100px;
+  width: 90%;
+  border-radius: 20px;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px #ccc;
+          box-shadow: 3px 3px #ccc;
+
+}
+
+.iine {
+
+  font-size: 15pt;
+  /* font-weight: 500;  */
+}
+
+.iine_form {
   position: relative;
-  left: 20px;
-  font-size: 18pt;
-  font-weight: 500; 
-}
-
-form {
-  text-align: center;
-  margin: 50px;
+  left: 108px;
 }
 
 .btn {
