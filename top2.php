@@ -35,9 +35,16 @@ $user = $stmt->fetch();
 <body>
 
   <header>
-    <img src="img/ネボスケロゴ_文字黒.jpg" class="logo">
-    <div class="home">HOME</div>
-    <!-- <div class="nav_item"><a href="#">ログアウト</a></div> -->
+    <!-- <div id="head"> -->
+      <div class="logo"><img src="img/ネボスケロゴ_文字黒.jpg"></div>
+      <div class="home">HOME</div>
+      <div class="profile">
+        <div class="profile_icon">
+          <img class="icon" src="upload/<?= $_SESSION['icon'] ?> " alt="">
+        </div>
+        <div class="profile_name"><?= $user["USER_NAME"] ?></div>
+      </div>
+    <!-- </div> -->
     <div class="hamburger-menu">
       <input type="checkbox" id="menu-btn-check">
       <label for="menu-btn-check" class="menu-btn"><span></span></label>
@@ -76,15 +83,7 @@ $user = $stmt->fetch();
     $_SESSION["delete"] = 0;
   }
   ?>
-  <?php
-  if (!isset($_SESSION['icon'])) {
-  } else {
-    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
-  }
-  ?>
 
-  <p style="margin: 20px auto 30px auto; width: 600px;">こんにちは、<?= $user["USER_NAME"] . 'さん' ?></p>
-  <!-- <p style="margin: 20px auto 30px auto; width: 600px;"><a href="mrpreg.php">新モーニングルーティンを作成する</a></p> -->
   <p style="margin: 20px auto 30px auto; width: 600px; font-weight: 700; font-size:larger;">マイモーニングルーティン　<a style="text-decoration: none;" href="mymrp.php">すべて表示</a></p>
   <?php
   //My MRの一覧取得

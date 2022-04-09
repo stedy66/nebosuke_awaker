@@ -1,17 +1,17 @@
 header {
-  background-color: #ffc900;
-  height: 100px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
+    background-color: #ffc900;
+    height: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
 body {
   background-color: #fef7e7;
 }
@@ -130,6 +130,7 @@ body {
   font-size: 20px;
   line-height: 150%;
 }
+/*# sourceMappingURL=mrdetail.css.map */
 
 #gazou {
   text-align: center
@@ -141,81 +142,64 @@ body {
   border-radius: 10px;
   padding-top: 10px;
 }
-
-#profile{
+  
+#profile {
   margin: 20px auto 20px auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-          justify-content: space-around;
-  height: 100px;
-  width: 90%;
+  height: 250px;
+  width: 600px;
   border-radius: 20px;
   background-color: #fff;
   -webkit-box-shadow: 3px 3px #ccc;
           box-shadow: 3px 3px #ccc;
 }
 
-.profile {
- display: flex;
- align-items: center;
+.profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 10px;
+  /* left: 150px; */
 }
 .icon{
-  width:90px;
+  width:100px;
   border-radius: 50%;
   border: 5px solid #ccc;
   box-sizing: border-box;
-  position:relative;
-  left: 10px;
 }
 .profile_name{
   font-weight: 700; 
   font-size: 30px;
   position: relative;
-  left: 20px;
+  left: 15px;
 }
 
-a {
-  text-decoration: none;
+#follow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position:relative;
+  top: 20px;
+
 }
 
 .follow {
   position: relative;
-  left:60px;
-  font-size: 15pt;
-  /* font-weight: 500;  */
+  right: 20px;
+  font-size: 18pt;
+  font-weight: 500; 
 }
 
-#iine {
-  margin: 20px auto 20px auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-          justify-content: space-around;
-  height: 100px;
-  width: 90%;
-  border-radius: 20px;
-  background-color: #fff;
-  -webkit-box-shadow: 3px 3px #ccc;
-          box-shadow: 3px 3px #ccc;
-
-}
-
-.iine {
-
-  font-size: 15pt;
-  /* font-weight: 500;  */
-}
-
-.iine_form {
+.followed {
   position: relative;
-  left: 108px;
+  left: 20px;
+  font-size: 18pt;
+  font-weight: 500; 
+}
+
+form {
+  text-align: center;
+  margin: 50px;
 }
 
 .btn {

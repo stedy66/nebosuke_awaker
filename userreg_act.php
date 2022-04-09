@@ -7,7 +7,7 @@ $icon = fileUpload("upfile", "upload/");
 if ($icon == 1 ) {
   exit("file error");
 }else if( $icon == 2) {
-  $icon = 'NULL';
+  $icon = 'default_icon.png';
 }
 $_SESSION["USER_ID"]=$_POST["USER_ID"];
 $_SESSION["USER_NAME"]=$_POST["USER_NAME"];

@@ -55,10 +55,11 @@ $pdo = db_conn();
     </div>
   </header>
   <?php
-  if (!isset($_SESSION['icon'])) {
-  } else {
-    echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
-  }
+  //アイコン表示
+  // if (!isset($_SESSION['icon'])) {
+  // } else {
+  //   echo '<img style="width:50px;" src="upload/' . $_SESSION['icon'] . '" alt="">';
+  // }
   ?>
   <?php
   //シェアされたMRの一覧取得
